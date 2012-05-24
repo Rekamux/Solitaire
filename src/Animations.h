@@ -30,7 +30,7 @@ class Animations : public AnimationAbstraite, public QList<AnimationAbstraite *>
 		virtual void slotTimeout();
 		
 	signals:
-		virtual void animationTerminee(int);//Pour indiquer à ListeAnimation que le temps est venu de détruire cet individu
+		void animationTerminee(int);//Pour indiquer à ListeAnimation que le temps est venu de détruire cet individu
 		
 	public:
 	//Constructeur

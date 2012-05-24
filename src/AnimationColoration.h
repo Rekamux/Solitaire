@@ -29,8 +29,8 @@ class AnimationColoration : public Animation
 		virtual void slotDemarrer();
 		
 	signals:
-		virtual void animationTerminee(int);//Pour indiquer à ListeAnimation que le temps est venu de détruire cet individu
-		virtual void carteLibre(int);//Pour indiquer à Widget que la carte est de nouveau non coloriée
+		void animationTerminee(int);//Pour indiquer à ListeAnimation que le temps est venu de détruire cet individu
+		void carteLibre(int);//Pour indiquer à Widget que la carte est de nouveau non coloriée
 
 	public:
 	//Constructeur

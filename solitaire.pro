@@ -33,29 +33,29 @@ HEADERS += src/Animation.h \
            src/ReceveurDonneG.h \
            src/Scores.h \
            src/Widget.h
-SOURCES += src/Animation.cc \
-           src/AnimationAbstraite.cc \
-           src/AnimationColoration.cc \
-           src/AnimationRotationY.cc \
-           src/Animations.cc \
-           src/AnimationsColorations.cc \
-           src/AnimationsDonne.cc \
-           src/AnimationsPlacerTas.cc \
-           src/AnimationsRetourner.cc \
-           src/AnimationsRetournerDonne.cc \
-           src/AnimationTranslation.cc \
-           src/BDD.cc \
-           src/BDDElement.cc \
-           src/CarteG.cc \
-           src/Cartes.cc \
-           src/CaseButG.cc \
-           src/DonneG.cc \
-           src/EmplacementG.cc \
-           src/FenetrePrincipale.cc \
-           src/LieuG.cc \
-           src/main.cc \
-           src/Options.cc \
-           src/Quinconce.cc \
-           src/ReceveurDonneG.cc \
-           src/Scores.cc \
-           src/Widget.cc
+SOURCES += src/Animation.cpp \
+           src/AnimationAbstraite.cpp \
+           src/AnimationColoration.cpp \
+           src/AnimationRotationY.cpp \
+           src/Animations.cpp \
+           src/AnimationsColorations.cpp \
+           src/AnimationsDonne.cpp \
+           src/AnimationsPlacerTas.cpp \
+           src/AnimationsRetourner.cpp \
+           src/AnimationsRetournerDonne.cpp \
+           src/AnimationTranslation.cpp \
+           src/BDD.cpp \
+           src/BDDElement.cpp \
+           src/CarteG.cpp \
+           src/Cartes.cpp \
+           src/CaseButG.cpp \
+           src/DonneG.cpp \
+           src/EmplacementG.cpp \
+           src/FenetrePrincipale.cpp \
+           src/LieuG.cpp \
+           src/main.cpp \
+           src/Options.cpp \
+           src/Quinconce.cpp \
+           src/ReceveurDonneG.cpp \
+           src/Scores.cpp \
+           src/Widget.cpp

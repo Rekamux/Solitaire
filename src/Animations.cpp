@@ -74,11 +74,11 @@ void Animations::slotDemarrer()
 
 void Animations::slotTimeout()
 {
-	if (termineQuandVide)
-		if (isEmpty())
+	if (termineQuandVide) {
+		if (isEmpty()) {
 			emit animationTerminee(getId());
-		else if (nbALancer!=0)
-		{
+        }
+		else if (nbALancer!=0) {
 			//Lancement de la suivante
 			bool trouve = false;
 			for (int i=0; i<size() && !trouve; i++)
@@ -88,9 +88,11 @@ void Animations::slotTimeout()
 					at(i)->slotDemarrer();
 					nbALancer--;
 				}
-			if (!trouve)
+			if (!trouve) {
 				QMessageBox::critical(0, "Timeout d'Animations", "nbALancer == "+QString::number(nbALancer)+" et pourtant toutes les animations sont lancées!");
+            }
 		}
+    }
 	passages++;
 }
 

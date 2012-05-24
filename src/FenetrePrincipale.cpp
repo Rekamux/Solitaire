@@ -339,7 +339,7 @@ void FenetrePrincipale::slotCacherPoints()
 //Largeur minimale = 497 + 8*10 = 577px
 //Hauteur minimale = 372 + 3*10 = 402px
 
-void FenetrePrincipale::resizeEvent(QResizeEvent *e)
+void FenetrePrincipale::resizeEvent(QResizeEvent *)
 {
 	QSize taille = vue -> size();
 	int l = taille.width();

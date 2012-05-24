@@ -20,13 +20,15 @@ bool CaseButG::ajouterCarte(CarteG *carte)
 		return false;
 	int famCarte = carte->getFamille();
 	int valCarte = carte->getValeur();
-	if (nombre() == 0)
-		if (valCarte != 0)
+	if (nombre() == 0) {
+		if (valCarte != 0) {
 			return false;
-		else
+        }
+		else {
 			estAs = true;
-	if (!estAs)
-	{
+        }
+    }
+	if (!estAs) {
 		int famTas = getCarte(0) -> getFamille();
 		int valTas = getCarte(0) -> getValeur();
 		if (famCarte != famTas)
@@ -35,8 +37,7 @@ bool CaseButG::ajouterCarte(CarteG *carte)
 			return false;
 	}
 	bool reussi = LieuG::ajouterCarte(carte);
-	if (reussi)
-	{
+	if (reussi) {
 		if (nombre()>1)
 			getCarte(1)->setDeplacable(false);
 		carte->setDeplacable(true);

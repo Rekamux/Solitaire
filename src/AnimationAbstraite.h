@@ -34,7 +34,7 @@ class AnimationAbstraite : public QObject
 		virtual void slotDemarrer()=0;
 		
 	signals:
-		virtual void animationTerminee(int);//Pour indiquer à ListeAnimation que le temps est venu de détruire cet individu
+		void animationTerminee(int);//Pour indiquer à ListeAnimation que le temps est venu de détruire cet individu
 		
 	public:
 

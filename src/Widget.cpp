@@ -425,7 +425,6 @@ void Widget::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 						vientDUneCaseBut = true;
 				if (vientDUneCaseBut)
 					ajouterPoints(-15);
-				QPointF origine = carteBougee->scenePos();
 				pasCase = false;
 				bool reussi;
 				lieuDepart->retirerCartes(qCB->nombre(), reussi);

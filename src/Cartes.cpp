@@ -154,8 +154,7 @@ bool Cartes::setCarte(int pos, CarteG *carte)
 	if (pos >= nombre())
 		return false;
 	
-	CarteG *position = operator[](pos);
-	position = carte;
+	operator[](pos) = carte;
 	return true;
 }
 
