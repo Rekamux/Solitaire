@@ -8,54 +8,54 @@ DEPENDPATH += .
 INCLUDEPATH += .
 
 # Input
-HEADERS += Animation.h \
-           AnimationAbstraite.h \
-           AnimationColoration.h \
-           AnimationRotationY.h \
-           Animations.h \
-           AnimationsColorations.h \
-           AnimationsDonne.h \
-           AnimationsPlacerTas.h \
-           AnimationsRetourner.h \
-           AnimationsRetournerDonne.h \
-           AnimationTranslation.h \
-           BDD.h \
-           BDDElement.h \
-           CarteG.h \
-           Cartes.h \
-           CaseButG.h \
-           DonneG.h \
-           EmplacementG.h \
-           FenetrePrincipale.h \
-           LieuG.h \
-           Options.h \
-           Quinconce.h \
-           ReceveurDonneG.h \
-           Scores.h \
-           Widget.h
-SOURCES += Animation.cc \
-           AnimationAbstraite.cc \
-           AnimationColoration.cc \
-           AnimationRotationY.cc \
-           Animations.cc \
-           AnimationsColorations.cc \
-           AnimationsDonne.cc \
-           AnimationsPlacerTas.cc \
-           AnimationsRetourner.cc \
-           AnimationsRetournerDonne.cc \
-           AnimationTranslation.cc \
-           BDD.cc \
-           BDDElement.cc \
-           CarteG.cc \
-           Cartes.cc \
-           CaseButG.cc \
-           DonneG.cc \
-           EmplacementG.cc \
-           FenetrePrincipale.cc \
-           LieuG.cc \
-           main.cc \
-           Options.cc \
-           Quinconce.cc \
-           ReceveurDonneG.cc \
-           Scores.cc \
-           Widget.cc
+HEADERS += src/Animation.h \
+           src/AnimationAbstraite.h \
+           src/AnimationColoration.h \
+           src/AnimationRotationY.h \
+           src/Animations.h \
+           src/AnimationsColorations.h \
+           src/AnimationsDonne.h \
+           src/AnimationsPlacerTas.h \
+           src/AnimationsRetourner.h \
+           src/AnimationsRetournerDonne.h \
+           src/AnimationTranslation.h \
+           src/BDD.h \
+           src/BDDElement.h \
+           src/CarteG.h \
+           src/Cartes.h \
+           src/CaseButG.h \
+           src/DonneG.h \
+           src/EmplacementG.h \
+           src/FenetrePrincipale.h \
+           src/LieuG.h \
+           src/Options.h \
+           src/Quinconce.h \
+           src/ReceveurDonneG.h \
+           src/Scores.h \
+           src/Widget.h
+SOURCES += src/Animation.cc \
+           src/AnimationAbstraite.cc \
+           src/AnimationColoration.cc \
+           src/AnimationRotationY.cc \
+           src/Animations.cc \
+           src/AnimationsColorations.cc \
+           src/AnimationsDonne.cc \
+           src/AnimationsPlacerTas.cc \
+           src/AnimationsRetourner.cc \
+           src/AnimationsRetournerDonne.cc \
+           src/AnimationTranslation.cc \
+           src/BDD.cc \
+           src/BDDElement.cc \
+           src/CarteG.cc \
+           src/Cartes.cc \
+           src/CaseButG.cc \
+           src/DonneG.cc \
+           src/EmplacementG.cc \
+           src/FenetrePrincipale.cc \
+           src/LieuG.cc \
+           src/main.cc \
+           src/Options.cc \
+           src/Quinconce.cc \
+           src/ReceveurDonneG.cc \
+           src/Scores.cc \
+           src/Widget.cc
