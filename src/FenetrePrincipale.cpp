@@ -26,7 +26,7 @@ FenetrePrincipale::FenetrePrincipale() : QMainWindow()
 	////////////////
 	
 	options = new Options(this);
-	connect(options, SIGNAL(accepted()), this, SLOT(slotChargerOptions));
+	connect(options, SIGNAL(accepted()), this, SLOT(slotChargerOptions()));
 	
 	/*	MEILLEURS SCORES	*/
 	//////////////////////////
@@ -167,7 +167,7 @@ FenetrePrincipale::FenetrePrincipale() : QMainWindow()
 	connect(widgetPrincipal, SIGNAL(cacherPoints()), this, SLOT(slotCacherPoints()));
 	connect(widgetPrincipal, SIGNAL(montrerScore(bool, int)), scores, SLOT(exec(bool, int)));
 	
-	QTimer::singleShot(100, widgetPrincipal, SLOT(slotdonne()));
+	QTimer::singleShot(100, widgetPrincipal, SLOT(slotDonne()));
 }
 
 /*************************
