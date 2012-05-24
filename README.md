@@ -20,5 +20,4 @@ TODO
 ----
 
 - Translate in english
-- Fix segfaults
 - Better design pattern (I was young)
