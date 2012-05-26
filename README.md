@@ -15,9 +15,9 @@ Features
 - Can change cards background
 - Can save options and scores
 - Smooth animations
+- English and french supported
 
 TODO
 ----
 
-- Translate in english
 - Better design pattern (I was young)
