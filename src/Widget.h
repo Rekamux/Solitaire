@@ -95,9 +95,6 @@ class Widget : public QGraphicsWidget
 		void montrerScore(bool, int);
 		
 	protected:
-		// Return true if stock is empty and all is left is to lift cards
-		bool victoryIsNear();
-
 		// Lift all possible cards
 		void liftAllCards();
 

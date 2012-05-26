@@ -316,58 +316,6 @@ void Widget::slotAnimationDonne()
 		animations->ajouterAnimation(new AnimationsDonne(500, cartesDonne, donne->scenePos()+QPointF(100, 0), this));
 }
 
-/************************************************************************************
- ************************* VICTORY DETECTION ****************************************
- ************************************************************************************/
-
-/*******************
- * VICTORY IS NEAR *
- *******************/
-
-bool Widget::victoryIsNear() {
-	if (!donne->estVide()) {
-		return false;
-	}
-	unsigned heaps = 0;
-	for (int i=0; i<7; i++) {
-		if (!emplacements[i]->estVide()) {
-			heaps++;
-		}
-	}
-	return heaps <= 4;
-}
-
-/******************
- * LIFT ALL CARDS *
- ******************/
-void Widget::liftAllCards() {
-	bool hasLifted = true;
-	while (hasLifted) {
-		hasLifted = false;
-		for (int i=0; i<7; i++) {
-			if (!emplacements[i]->estVide()) {
-				hasLifted |= monterCarte(emplacements[i]->getCarte(0));
-			}
-		}
-	}
-}
-
-/******************
- * SHOW LAST CARD *
- ******************/
-void Widget::showLastCard(LieuG *place) {
-	CarteG *showedCard = place->retournerCarteCachee();
-	if (!showedCard) {
-		return;
-	}
-	if (animation)
-	{
-		AnimationsRetourner *retournement = new AnimationsRetourner(200, showedCard, showedCard->scenePos(), this, true, place==emplacements[6]);
-		animations->ajouterAnimation(retournement);
-	}
-	ajouterPoints(5);
-}
-
 /***************************************************************************************************
 ******************************************DRAG N' DROP*********************************************
 ***************************************************************************************************/
@@ -384,12 +332,7 @@ void Widget::mousePressEvent(QGraphicsSceneMouseEvent *event)
 		emit lancerChrono();
 	}
 	if (event -> button() == Qt::RightButton) {
-		QPointF clic = event -> scenePos();
-		if (victoryIsNear()) {
-			liftAllCards();
-		} else {
-			monterCarte(quelleCarteCliquee(clic));
-		}
+		liftAllCards();
 	}
 	else if (event -> button() == Qt::LeftButton)
 	{
@@ -545,8 +488,9 @@ void Widget::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 						pasCase = false;
 						// Colorier l'emplacement
 						AnimationColoration * coloration;
-						if (survol->nombre() == 0)
+						if (survol->nombre() == 0) {
 							coloration = new AnimationColoration(survol->getSupportDessin(), 500, survol->getSupportDessin()->scenePos(), this);	
+						}
 						else	
 						{	
 							coloration = new AnimationColoration(survol->getCarte(0), 500, survol->getCarte(0)->scenePos(), this);		
@@ -663,6 +607,37 @@ void Widget::changerFond(QString image)
 	{	
 		cartes[i] -> changerImage();
 	}
+}
+
+/******************
+ * LIFT ALL CARDS *
+ ******************/
+void Widget::liftAllCards() {
+	bool hasLifted = true;
+	while (hasLifted) {
+		hasLifted = false;
+		for (int i=0; i<7; i++) {
+			if (!emplacements[i]->estVide()) {
+				hasLifted |= monterCarte(emplacements[i]->getCarte(0));
+			}
+		}
+	}
+}
+
+/******************
+ * SHOW LAST CARD *
+ ******************/
+void Widget::showLastCard(LieuG *place) {
+	CarteG *showedCard = place->retournerCarteCachee();
+	if (!showedCard) {
+		return;
+	}
+	if (animation)
+	{
+		AnimationsRetourner *retournement = new AnimationsRetourner(200, showedCard, showedCard->scenePos(), this, true, place==emplacements[6]);
+		animations->ajouterAnimation(retournement);
+	}
+	ajouterPoints(5);
 }
 
 /*********************************
