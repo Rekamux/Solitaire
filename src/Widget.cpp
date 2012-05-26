@@ -352,6 +352,22 @@ void Widget::liftAllCards() {
 	}
 }
 
+/******************
+ * SHOW LAST CARD *
+ ******************/
+void Widget::showLastCard(LieuG *place) {
+	CarteG *showedCard = place->retournerCarteCachee();
+	if (!showedCard) {
+		return;
+	}
+	if (animation)
+	{
+		AnimationsRetourner *retournement = new AnimationsRetourner(200, showedCard, showedCard->scenePos(), this, true, place==emplacements[6]);
+		animations->ajouterAnimation(retournement);
+	}
+	ajouterPoints(5);
+}
+
 /***************************************************************************************************
 ******************************************DRAG N' DROP*********************************************
 ***************************************************************************************************/
@@ -404,14 +420,7 @@ void Widget::mousePressEvent(QGraphicsSceneMouseEvent *event)
 					if (emplacements[i]->LieuG::getCarte(0)==carteCliquee && emplacements[i]->nombreVisibles()==0 && emplacements[i]->nombreCachees()!=0)
 					{
 						doitRetourner = true;
-						emplacements[i] -> retournerCarteCachee();
-						if (animation)
-						{
-							bool aGauche=(i==6);
-							AnimationsRetourner *retournement = new AnimationsRetourner(200, carteCliquee, carteCliquee->scenePos(), this, true, aGauche);
-							animations->ajouterAnimation(retournement);
-						}
-						ajouterPoints(5);
+						showLastCard(emplacements[i]);
 					}
 				//Si on a cliqué sur la donne
 				if (!doitRetourner && donne->LieuG::getCarte(0)==carteCliquee)
@@ -436,12 +445,12 @@ void Widget::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 		bool pasCase = true;
 		QRectF position = carteBougee -> sceneBoundingRect();
 		QPointF depart = carteBougee->scenePos();
+		LieuG *lieuDepart = static_cast<LieuG*>(carteBougee->parentWidget());
 		//Recherche de l'arrivee
 		for (int i=0; i<4 && pasCase; i++)
 			if (position.intersects(casesBut[i]->sceneBoundingRect()) && qCB->nombre()==0 && casesBut[i]->posAjouterCarte(carteBougee))
 			{
 				pasCase = false;
-				LieuG *lieuDepart = static_cast<LieuG*>(carteBougee->parentWidget());
 				CarteG *test = lieuDepart->retirerCarte();
 				if (test == NULL)
 					QMessageBox::critical(0, "Dans mouse release event de Widget.cc", "Impossible de retirer la carte de son parent!");
@@ -457,7 +466,6 @@ void Widget::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 		for (int i=0; i<7 && pasCase; i++)
 			if (position.intersects(emplacements[i]->sceneBoundingRect()) && emplacements[i]->posAjouterCarte(carteBougee))
 			{
-				LieuG *lieuDepart = static_cast<LieuG*>(carteBougee->parentWidget());
 				if (*lieuDepart == *receveurDonne)
 					ajouterPoints(5);
 				bool vientDUneCaseBut = false;
@@ -486,7 +494,11 @@ void Widget::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 				qCB->getCarte(i)->setPos(origineCarteBougee + QPointF(0, (qCB->nombre()-i)*15));
 			if (animation)
 				animations->ajouterAnimation(new AnimationsPlacerTas(200, carteBougee, depart, carteBougee->scenePos(), qCB, this));
-		}			
+		}
+		else {
+			// We return the previously hidden card
+			showLastCard(lieuDepart);
+		}
 		carteBougee = NULL;
 		if (qCB!=NULL)
 			delete qCB;
@@ -610,7 +622,7 @@ bool Widget::monterCarte(CarteG *carteCliquee)
 		if (animation) {
 			animations->ajouterAnimation(new AnimationTranslation(carteCliquee, 200, depart, arrivee, this));
 		}
-		victoire();
+		showLastCard(lieuDepart);
 		return true;
 	}
 	return false;

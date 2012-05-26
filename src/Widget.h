@@ -101,6 +101,9 @@ class Widget : public QGraphicsWidget
 		// Lift all possible cards
 		void liftAllCards();
 
+		// Return the top card of a place if possible
+		void showLastCard(LieuG *place);
+
 		//Drag and Drop
 		void mousePressEvent(QGraphicsSceneMouseEvent *event);
 		void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);

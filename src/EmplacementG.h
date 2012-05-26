@@ -50,7 +50,7 @@ class EmplacementG : public LieuG
 		bool posAjouterCarte(CarteG *carte);				//Possibilité d'ajouter une carte
 		bool posAjouterCarte(int carte);					//Idem
 		bool ajouterCartes(Quinconce &tas);					//Ajoute un tas de cartes
-		bool retournerCarteCachee();						//Retourne la carte du dessus s'il y lieu (booléen retourné)
+		CarteG *retournerCarteCachee();						//Retourne la carte du dessus s'il y lieu (booléen retourné)
 		CarteG *retirerCarte();								//Retire la carte du dessus
 		Cartes retirerCartes(int nombre, bool &reussi);		//Retire un certain nombre de cartes
 		Cartes recupererCartesAvant(CarteG *carte, bool &reussi);//Retire un les cartes avant celle indiquée

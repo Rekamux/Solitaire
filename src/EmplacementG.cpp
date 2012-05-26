@@ -158,18 +158,17 @@ bool EmplacementG::ajouterCartes(Quinconce &tas)
 	return reussi;
 }
 
-bool EmplacementG::retournerCarteCachee()
+CarteG *EmplacementG::retournerCarteCachee()
 {
-	bool reussi = false;
+	CarteG *retournee = NULL;
 	if (visibles.getNombre() == 0 && nombreCachees() != 0)
 	{
-		CarteG *retournee = LieuG::retirerCarte();
-		reussi = (retournee != NULL);
-		if (reussi)
-			reussi = visibles.ajouterCarte(retournee);
+		retournee = LieuG::retirerCarte();
+		if (retournee)
+			visibles.ajouterCarte(retournee);
 		else
 			QMessageBox::critical(0, "Bug", "Fonction retourner carte cachees EmplacementG.cc<br />Impossible de retirer des cartes cachees!");
-		if (reussi)
+		if (retournee)
 		{
 			retournee->setParentItem(this);
 			retournee->setZValue(nombre()+1);
@@ -178,7 +177,7 @@ bool EmplacementG::retournerCarteCachee()
 			retournee->setDeplacable(true);
 		}
 	}
-	return reussi;
+	return retournee;
 }
 
 CarteG *EmplacementG::retirerCarte()

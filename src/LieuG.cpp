@@ -120,9 +120,9 @@ bool LieuG::ajouterCartes(Cartes &tas)
 	return reussi;
 }
 
-bool LieuG::retournerCarteCachee()
+CarteG *LieuG::retournerCarteCachee()
 {
-	return false;
+	return NULL;
 }
 
 CarteG *LieuG::getSupportDessin()

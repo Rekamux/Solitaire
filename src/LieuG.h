@@ -40,7 +40,7 @@ class LieuG : public QGraphicsWidget, public Cartes
 	//Modificateurs
 		virtual bool ajouterCarte(CarteG *carte);					//Ajoute une carte
 		virtual bool ajouterCartes(Cartes &tas);					//Ajoute un tas de cartes
-		virtual bool retournerCarteCachee();						//Retourne la carte du dessus s'il y lieu (booléen retourné)
+		virtual CarteG *retournerCarteCachee();						//Retourne la carte du dessus s'il y lieu (booléen retourné)
 		virtual CarteG *getSupportDessin();				//Le rectangle représentant le widget
 };
 
