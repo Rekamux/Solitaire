@@ -41,12 +41,14 @@ void AnimationColoration::slotTimeout()
 	{
 		QPixmap tempPixmap;
 		tempPixmap = copie->brush().texture();
-		if (copie->i()==0)
+		if (copie->i()==0) {
 			tempPixmap.fill(Qt::transparent);
-		QPainter painter;
-		painter.begin(&tempPixmap);
-		painter.fillRect(copie->brush().texture().rect(), QColor(0, 0, 200, 150));
-		painter.end();
+		} else {
+			QPainter painter;
+			painter.begin(&tempPixmap);
+			painter.fillRect(copie->brush().texture().rect(), QColor(0, 0, 200, 150));
+			painter.end();
+		}
 		copie->setBrush(QBrush(tempPixmap));
 	}
 	passages++;
