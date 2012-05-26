@@ -38,8 +38,6 @@ bool CaseButG::ajouterCarte(CarteG *carte)
 	}
 	bool reussi = LieuG::ajouterCarte(carte);
 	if (reussi) {
-		if (nombre()>1)
-			getCarte(1)->setDeplacable(false);
 		carte->setDeplacable(true);
 		carte->setCache(false);
 	}
