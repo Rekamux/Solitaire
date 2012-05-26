@@ -616,6 +616,9 @@ void Widget::liftAllCards() {
 	bool hasLifted = true;
 	while (hasLifted) {
 		hasLifted = false;
+		if (!receveurDonne->estVide()) {
+			hasLifted |= monterCarte(receveurDonne->getCarte(0));
+		}
 		for (int i=0; i<7; i++) {
 			if (!emplacements[i]->estVide()) {
 				hasLifted |= monterCarte(emplacements[i]->getCarte(0));
