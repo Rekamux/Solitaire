@@ -6,7 +6,7 @@ TEMPLATE = app
 TARGET = Solitaire
 DEPENDPATH += .
 INCLUDEPATH += .
-TRANSLATIONS = solitaire_en.ts solitaire_fr.ts
+TRANSLATIONS = translations/solitaire_en.ts translations/solitaire_fr.ts
 
 # Input
 HEADERS += src/Animation.h \
