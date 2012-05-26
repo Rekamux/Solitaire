@@ -316,6 +316,41 @@ void Widget::slotAnimationDonne()
 		animations->ajouterAnimation(new AnimationsDonne(500, cartesDonne, donne->scenePos()+QPointF(100, 0), this));
 }
 
+/************************************************************************************
+ ************************* VICTORY DETECTION ****************************************
+ ************************************************************************************/
+
+/*******************
+ * VICTORY IS NEAR *
+ *******************/
+
+bool Widget::victoryIsNear() {
+	if (!donne->estVide()) {
+		return false;
+	}
+	unsigned heaps = 0;
+	for (int i=0; i<7; i++) {
+		if (!emplacements[i]->estVide()) {
+			heaps++;
+		}
+	}
+	return heaps <= 4;
+}
+
+/******************
+ * LIFT ALL CARDS *
+ ******************/
+void Widget::liftAllCards() {
+	bool hasLifted = true;
+	while (hasLifted) {
+		hasLifted = false;
+		for (int i=0; i<7; i++) {
+			if (!emplacements[i]->estVide()) {
+				hasLifted |= monterCarte(emplacements[i]->getCarte(0));
+			}
+		}
+	}
+}
 
 /***************************************************************************************************
 ******************************************DRAG N' DROP*********************************************
@@ -332,8 +367,14 @@ void Widget::mousePressEvent(QGraphicsSceneMouseEvent *event)
 		chronoLance = true;
 		emit lancerChrono();
 	}
-	if (event -> button() == Qt::RightButton)
-		monterCarte(event -> scenePos());
+	if (event -> button() == Qt::RightButton) {
+		QPointF clic = event -> scenePos();
+		if (victoryIsNear()) {
+			liftAllCards();
+		} else {
+			monterCarte(quelleCarteCliquee(clic));
+		}
+	}
 	else if (event -> button() == Qt::LeftButton)
 	{
 		QPointF clic = event -> scenePos();
@@ -511,9 +552,11 @@ void Widget::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
 void Widget::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 {
-	if (event -> button() == Qt::LeftButton)
-		monterCarte(event -> scenePos());
-	else
+	if (event -> button() == Qt::LeftButton) {
+		monterCarte(quelleCarteCliquee(event -> scenePos()));
+	}
+	else {
+	}
 		event->ignore();
 }
 
@@ -540,35 +583,37 @@ void Widget::resizeEvent(int l, int h)
 * MONTER CARTE	*
 *****************/
 
-void Widget::monterCarte(QPointF clic)
+bool Widget::monterCarte(CarteG *carteCliquee)
 {
-	CarteG *carteCliquee = quelleCarteCliquee(clic);
-	if (carteCliquee != NULL && carteCliquee->getDeplacable())
-	{
-		int position = -1;
-		for (int i=0; i<7 && position == -1; i++)
-			position = emplacements[i]->position(carteCliquee);
-		//Si soit la carte ne vient pas d'un emplacement, soit la carte n'a pas d'autres cartes sur elle
-		if (position<=0)
-		{
-			bool pasCase = true;
-			for (int i=0; i<4 && pasCase; i++)
-				if (casesBut[i]->posAjouterCarte(carteCliquee))
-				{
-					QPointF depart = carteCliquee->scenePos();
-					pasCase = false;
-					LieuG *lieuDepart = static_cast<LieuG*>(carteCliquee->parentWidget());
-					lieuDepart->retirerCarte();
-					casesBut[i]->ajouterCarte(carteCliquee);
-					QPointF arrivee = carteCliquee->scenePos();
-					if (*lieuDepart!=*casesBut[0] && *lieuDepart!=*casesBut[1] && *lieuDepart!=*casesBut[2] && *lieuDepart!=*casesBut[3])
-						ajouterPoints(10);
-					victoire();
-					if (animation)
-						animations->ajouterAnimation(new AnimationTranslation(carteCliquee, 200, depart, arrivee, this));
-				}
-		}
+	if (carteCliquee == NULL || !carteCliquee->getDeplacable()) {
+		return false;
 	}
+	int position = -1;
+	for (int i=0; i<7 && position == -1; i++)
+		position = emplacements[i]->position(carteCliquee);
+	//Si soit la carte ne vient pas d'un emplacement, soit la carte n'a pas d'autres cartes sur elle
+	if (position>0) {
+		return false;
+	}
+	for (int i=0; i<4; i++) {
+		if (!casesBut[i]->posAjouterCarte(carteCliquee)) {
+			continue;
+		}
+		QPointF depart = carteCliquee->scenePos();
+		LieuG *lieuDepart = static_cast<LieuG*>(carteCliquee->parentWidget());
+		lieuDepart->retirerCarte();
+		casesBut[i]->ajouterCarte(carteCliquee);
+		QPointF arrivee = carteCliquee->scenePos();
+		if (*lieuDepart!=*casesBut[0] && *lieuDepart!=*casesBut[1] && *lieuDepart!=*casesBut[2] && *lieuDepart!=*casesBut[3]) {
+			ajouterPoints(10);
+		}
+		if (animation) {
+			animations->ajouterAnimation(new AnimationTranslation(carteCliquee, 200, depart, arrivee, this));
+		}
+		victoire();
+		return true;
+	}
+	return false;
 }
 
 /*****************

@@ -95,6 +95,12 @@ class Widget : public QGraphicsWidget
 		void montrerScore(bool, int);
 		
 	protected:
+		// Return true if stock is empty and all is left is to lift cards
+		bool victoryIsNear();
+
+		// Lift all possible cards
+		void liftAllCards();
+
 		//Drag and Drop
 		void mousePressEvent(QGraphicsSceneMouseEvent *event);
 		void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
@@ -105,7 +111,7 @@ class Widget : public QGraphicsWidget
 		CarteG *quelleCarteCliquee(QPointF clic);
 		
 		//Monter une carte
-		void monterCarte(QPointF);
+		bool monterCarte(CarteG *);
 		void victoire();
 		
 		//Montrer les cartes de la donne
