@@ -9,9 +9,12 @@ int main(int argc, char *argv[])
 	QApplication app(argc, argv);
 
 	QString locale = QLocale::system().name().section('_', 0, 0);
- 
+	QString file_start = "translations/solitaire_";
     QTranslator translator;
-    translator.load(QString("translations/solitaire_") + locale);
+	if (!QFile(file_start + locale).exists()) {
+		locale = QString("en");
+	}
+    translator.load(file_start + locale);
     app.installTranslator(&translator);
 	
 	FenetrePrincipale fen;
