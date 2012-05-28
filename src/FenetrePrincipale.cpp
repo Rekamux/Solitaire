@@ -256,7 +256,7 @@ void FenetrePrincipale::slotChargerOptions()
 
 void FenetrePrincipale::slotRegles()
 {
-	QMessageBox::information(this,tr("Règles du QSolitaire"),tr("Le but est d'empiler chaque famille de cartes de l'as au roi dans les quatres cases du haut.<br />Pour ce faire, aidez-vous des 11 emplacements qui peuvent contenir les cartes selon la disposition suivante:<br :><ul><li>Chaque carte doit être d'une couleur différente de celle de son prédécesseur.</li><li>Elle doivent aller du roi à l'as.</li><li>On peut déplacer plusieurs cartes d'un coup.</li><li>Un roi peut aller dans une case vide.</li><li>Cliquez sur une carte cachée qui n'a aucune carte sur elle pour la retourner.</li></ul><br />Pour une meilleure compréhension des règles, activez la silhouette sous déplacement dans les options.<br />Bon jeu!"));
+	QMessageBox::information(this,tr("Règles du QSolitaire"),tr("Rules"));
 }
 
 /*******************************

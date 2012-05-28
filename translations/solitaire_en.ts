@@ -79,7 +79,6 @@
         
     </message>
     <message>
-        <location filename="src/FenetrePrincipale.cpp" line="53"/>
         <location filename="src/FenetrePrincipale.cpp" line="259"/>
 		<source>Règles du QSolitaire</source>
         <translation>QSolitaire rules</translation>
@@ -220,8 +219,8 @@
     </message>
     <message>
         <location filename="src/FenetrePrincipale.cpp" line="259"/>
-        <source>Le but est d&apos;empiler chaque famille de cartes de l&apos;as au roi dans les quatres cases du haut.&lt;br /&gt;Pour ce faire, aidez-vous des 11 emplacements qui peuvent contenir les cartes selon la disposition suivante:&lt;br :&gt;&lt;ul&gt;&lt;li&gt;Chaque carte doit être d&apos;une couleur différente de celle de son prédécesseur.&lt;/li&gt;&lt;li&gt;Elles doivent aller du roi à l&apos;as.&lt;/li&gt;&lt;li&gt;On peut déplacer plusieurs cartes d&apos;un coup.&lt;/li&gt;&lt;li&gt;Seul un roi peut aller dans une case vide.&lt;/li&gt;&lt;li&gt;Cliquez sur une carte cachée qui n&apos;a aucune carte sur elle pour la retourner.&lt;/li&gt;&lt;/ul&gt;&lt;br /&gt;Pour une meilleure compréhension des règles, activez la silhouette sous déplacement dans les options.&lt;br /&gt;Bon jeu!</source>
-        <translation>The goal is to stack each family from the Ace to the King in the four goal spots.&lt;br /&gt;To do so, use the 7 spots below with the following rules:&lt;br :&gt;&lt;ul&gt;&lt;li&gt;Each card must of a different color from its predecessor.&lt;/li&gt;&lt;li&gt;They must be stacked fro; the King to the Ace.&lt;/li&gt;&lt;li&gt;You can move stacked cards at once.&lt;/li&gt;&lt;li&gt;Only a King can be placed on an empty spot&lt;/li&gt;&lt;/ul&gt;&lt;br /&gt;To help you understanding the rules, activate the helping silhouette.&lt;br /&gt;Have fun!</translation>
+        <source>Rules</source>
+        <translation>The goal is to stack each family from the Ace to the King in the four goal spots.&lt;br /&gt;To do so, use the 7 spots below with the following rules:&lt;br :&gt;&lt;ul&gt;&lt;li&gt;Each card must of a different color from its predecessor.&lt;/li&gt;&lt;li&gt;They must be stacked from the King to the Ace.&lt;/li&gt;&lt;li&gt;You can move stacked cards at once.&lt;/li&gt;&lt;li&gt;Only a King can be placed on an empty spot&lt;/li&gt;&lt;/ul&gt;&lt;br /&gt;To help you understanding the rules, activate the help silhouette in the settings menu.&lt;br /&gt;Have fun!</translation>
         
     </message>
     <message>
@@ -250,7 +249,7 @@
     </message>
 </context>
 <context>
-    <name>Settings</name>
+    <name>Options</name>
     <message>
         <location filename="src/Options.cpp" line="19"/>
         <source>Options du QSolitaire</source>
