@@ -168,7 +168,7 @@ CarteG *Cartes::retirerCarte()
 	return retour;
 }
 
-Cartes Cartes::retirerCartes(int qtite, bool &reussi)
+Cartes Cartes::retirerCartes(int qtite, bool &reussi, bool invert)
 {
 	if (qtite > nombre() || qtite < 0)
 	{
@@ -179,6 +179,11 @@ Cartes Cartes::retirerCartes(int qtite, bool &reussi)
 	for (int i=0; i<qtite; i++)
 		retour << (takeAt(0));
 	reussi = true;
+	if (invert) {
+		for (int i=0; i<retour.size()/2; i++) {
+			retour.swap(i, retour.size()-1-i);
+		}
+	}
 	return Cartes(retour);
 }
 
@@ -201,11 +206,51 @@ Cartes Cartes::recupererCartesAvant(CarteG *carte, bool &reussi)
 *	Méthodes		*
 ********************/
 
-void Cartes::melanger()
+using namespace std;
+#include <iostream>
+
+void Cartes::melanger(bool cheat)
 {
-	srand(time(NULL));
-	for (int i=0; i<nombre(); i++)
-		echanger(operator[](i), operator[](rand() % 52));
+	if (!cheat) {
+		srand(time(NULL));
+		for (int i=0; i<nombre(); i++)
+			echanger(operator[](i), operator[](rand() % 52));
+		return;
+	}
+
+	// Generating this pattern
+	// 1	2	4	5	6	7	7
+	// 		1	3	4	5	6	7
+	// 			1	3	4	6	7
+	// 				1	3	5	6
+	// 					2	3	5	
+	// 						2	4
+	// 							2
+	Cartes other(*this);
+	int index = 0;
+	int column = 0;
+	int row = 0;
+	for (int card=0; card<7; card++) {
+		for (int family=0; family<4; family++) {
+			operator[](index) = other[family*13+card];
+			if (column != 6) {
+				column ++;
+				row ++;
+			}
+			else {
+				column = 7-row;
+				row = 0;
+			}
+			index = (column*(column+1))/2 + row;
+		}
+	}
+	index = 7*4;
+	for (int card=7; card<13; card++) {
+		for (int family=0; family<4; family++) {
+			operator[](index) = other[family*13+card];
+			index++;
+		}
+	}
 }
 
 QString Cartes::getString()

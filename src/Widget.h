@@ -75,10 +75,11 @@ class Widget : public QGraphicsWidget
 		void changerFond(QString);
 		
 		void ajouterPoints(int);
+
+		// Deal cards
+		void deal(bool cheat = false);
 		
 	public slots:
-		//Redonner les cartes
-		void slotDonne();
 		//Charger les options
 		void slotChargerOptions();
 		//Animation de la donne
@@ -95,6 +96,9 @@ class Widget : public QGraphicsWidget
 		void montrerScore(bool, int);
 		
 	protected:
+		// Is game playable (false if won)
+		bool hasWon;
+
 		// Lift all possible cards
 		void liftAllCards();
 

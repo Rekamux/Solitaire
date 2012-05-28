@@ -57,6 +57,9 @@ class FenetrePrincipale : public QMainWindow
 	
 		//Redonner les cartes
 		void slotDonne();
+
+		// Deal by cheating
+		void slotCheatDeal();
 		
 		//Ouvrir la fenetre A Propos de QSloitaire
 		void aProposSlot();
@@ -110,6 +113,11 @@ class FenetrePrincipale : public QMainWindow
 			//Elements de Fonds
 			QAction *actionAideFonds;
 			QSignalMapper *fondMapper;
+
+		QMenu *menuCheat;
+
+			// Cheat elements
+			QAction *actionCheatDeal;
 			
 		QMenu *menuAPropos;
 		

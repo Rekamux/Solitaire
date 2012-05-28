@@ -81,6 +81,12 @@ FenetrePrincipale::FenetrePrincipale() : QMainWindow()
 			
 		fondMapper = new QSignalMapper(this);
 			QObject::connect(fondMapper, SIGNAL(mapped(QString)), this, SLOT(slotChangerFond(QString)));
+
+	menuCheat = menuBar()->addMenu(tr("Cheat"));
+
+		actionCheatDeal = menuCheat->addAction(tr("Cheating deal"));
+		actionCheatDeal->setStatusTip(tr("Give an always-winning deal"));
+		QObject::connect(actionCheatDeal, SIGNAL(triggered()), this, SLOT(slotCheatDeal()));
 	
 	menuAPropos = menuBar() -> addMenu(tr("?"));
 	
@@ -167,7 +173,7 @@ FenetrePrincipale::FenetrePrincipale() : QMainWindow()
 	connect(widgetPrincipal, SIGNAL(cacherPoints()), this, SLOT(slotCacherPoints()));
 	connect(widgetPrincipal, SIGNAL(montrerScore(bool, int)), scores, SLOT(exec(bool, int)));
 	
-	QTimer::singleShot(100, widgetPrincipal, SLOT(slotDonne()));
+	QTimer::singleShot(100, this, SLOT(slotDonne()));
 }
 
 /*************************
@@ -179,6 +185,16 @@ void FenetrePrincipale::aProposSlot()
 	QMessageBox::information(this,tr("A propos de QSolitaire"),tr("Programme réalisé par <strong>Axel Schumacher</strong><h3>Remerciements :</h3><ul><li><strong>M. Nebra</strong> : <a href='www.siteduzero.com'>www.siteduzero.com</a></li><li><strong>J. Chauche</strong> : <a href='http://www.lirmm.fr/~chauche/'>http://www.lirmm.fr/~chauche/</a></li><li><strong>M. Yèche</strong> pour les images</li></ul>"));
 }
 
+/*******************
+ * SLOT CHEAT DEAL *
+ *******************/
+
+void FenetrePrincipale::slotCheatDeal() {
+	if (widgetPrincipal) {
+		widgetPrincipal->deal(true);
+	}
+}
+
 /********************
 *	SLOT DONNE	*
 ********************/
@@ -186,7 +202,7 @@ void FenetrePrincipale::aProposSlot()
 void FenetrePrincipale::slotDonne()
 {
 	if (widgetPrincipal!=NULL)
-		widgetPrincipal->slotDonne();
+		widgetPrincipal->deal();
 }
 
 /**********************************

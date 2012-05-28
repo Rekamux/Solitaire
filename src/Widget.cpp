@@ -23,6 +23,7 @@ Widget::Widget()
 	carteBougee = NULL;
 	qCB = NULL;
 	nbCartesDistribuees = 3;
+	hasWon = false;
 
 	/*	Animations	*/
 	////////////////
@@ -65,7 +66,7 @@ Widget::Widget()
 	/*	Initialisation	*/
 	/////////////////////
 	
-	slotDonne();
+	deal();
 }
 
 /********************
@@ -132,10 +133,11 @@ void Widget::retournerCarteDonne()
 *	SLOT DONNE	*
 ********************/
 
-void Widget::slotDonne()
+void Widget::deal(bool cheat)
 {
 if (animations->isEmpty() && animationsColorations->isEmpty() && carteBougee == NULL && qCB == NULL)
 {
+	hasWon = false;
 	points = 0;
 	emit cacherPoints();
 	slotChargerOptions();
@@ -184,7 +186,7 @@ if (animations->isEmpty() && animationsColorations->isEmpty() && carteBougee == 
 	cartes = new CarteG *[52];
 	for (int i=0; i<52; i++)
 		cartes[i] = aDonner.getCarte(i);
-	aDonner.melanger();
+	aDonner.melanger(cheat);
 	
 	donne = new DonneG(aDonner, QPixmap("Autre/fondDonne.bmp"));
 		donne->setParentItem(this);
@@ -213,12 +215,12 @@ if (animations->isEmpty() && animationsColorations->isEmpty() && carteBougee == 
 	emplacements = new EmplacementG *[7];
 	for (int i=0; i<7; i++)
 	{
-		emplacements[i] = new EmplacementG(donne->retirerCartes(i, verification), donne -> retirerCarte());
+		emplacements[i] = new EmplacementG(donne->retirerCartes(i, verification, true), donne -> retirerCarte());
 		emplacements[i]->getSupportDessin()->setBrush(Qt::transparent);
 		emplacements[i]->setParentItem(this);
 		//emplacements[i]->setPos((1+i)*espaceH + i*71, 2*espaceV + 1*96);
 		if (!verification)
-			QMessageBox::critical(0, "slotDonne de Widget.cc", "Erreur lors du retrait des cartes de la donne");
+			QMessageBox::critical(0, "Deal de Widget.cc", "Erreur lors du retrait des cartes de la donne");
 	}
 	
 	if (animation)
@@ -325,13 +327,19 @@ void Widget::slotAnimationDonne()
 *****************************/
 
 void Widget::mousePressEvent(QGraphicsSceneMouseEvent *event)
-{	
+{
+	if (hasWon) {
+		return;
+	}
 	if (chrono && !chronoLance)
 	{
 		chronoLance = true;
 		emit lancerChrono();
 	}
 	if (event -> button() == Qt::RightButton) {
+		if (receveurDonne->estVide()) {
+			retournerCarteDonne();
+		}
 		liftAllCards();
 	}
 	else if (event -> button() == Qt::LeftButton)
@@ -567,6 +575,7 @@ bool Widget::monterCarte(CarteG *carteCliquee)
 			animations->ajouterAnimation(new AnimationTranslation(carteCliquee, 200, depart, arrivee, this));
 		}
 		showLastCard(lieuDepart);
+		victoire();
 		return true;
 	}
 	return false;
@@ -583,6 +592,7 @@ void Widget::victoire()
 		gagne = gagne && (casesBut[i]->nombre()==13);
 	if (gagne)
 	{
+		hasWon = true;
 		QMessageBox *message = new QMessageBox(QMessageBox::NoIcon, "Victoire!", "Félicitations!<br />Vous avez remporté la partie!", QMessageBox::Ok, scene()->views()[0]);
 		message->setIconPixmap(QPixmap("./Autre/victoire.jpg"));
 		message->exec();
@@ -631,6 +641,12 @@ void Widget::liftAllCards() {
  * SHOW LAST CARD *
  ******************/
 void Widget::showLastCard(LieuG *place) {
+	if (place == receveurDonne) {
+		if (receveurDonne->estVide() && !donne->estVide()) {
+			retournerCarteDonne();
+		}
+		return;
+	}
 	CarteG *showedCard = place->retournerCarteCachee();
 	if (!showedCard) {
 		return;
