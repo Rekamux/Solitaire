@@ -60,6 +60,7 @@
 #include "AnimationsDonne.h"
 #include "AnimationColoration.h"
 #include "AnimationsColorations.h"
+#include "VictoryAnimation.h"
 
 class Widget : public QGraphicsWidget
 {
@@ -84,6 +85,8 @@ class Widget : public QGraphicsWidget
 		void slotChargerOptions();
 		//Animation de la donne
 		void slotAnimationDonne();
+		// Victory animation
+		void slotVictoryAnimation();
 		
 	signals:
 		//Gestion du chrono

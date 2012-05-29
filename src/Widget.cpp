@@ -318,6 +318,18 @@ void Widget::slotAnimationDonne()
 		animations->ajouterAnimation(new AnimationsDonne(500, cartesDonne, donne->scenePos()+QPointF(100, 0), this));
 }
 
+/**************************
+ * SLOT VICTORY ANIMATION *
+ **************************/
+
+void Widget::slotVictoryAnimation() {
+	if (animation) {
+		for (int i=0; i<4; i++) {
+			animations->ajouterAnimation(new VictoryAnimation(i%2, 10000, casesBut[i], casesBut[i]->scenePos(), this));
+		}
+	}
+}
+
 /***************************************************************************************************
 ******************************************DRAG N' DROP*********************************************
 ***************************************************************************************************/
@@ -598,8 +610,12 @@ void Widget::victoire()
 		message->exec();
 		if (message->clickedButton() == message->button(QMessageBox::Ok))
 		{
-			if (compterPoints)
+			if (compterPoints) {
 				emit montrerScore(true, points);
+			}
+			if (animation) {
+				slotVictoryAnimation();
+			}
 		}
 	}
 }

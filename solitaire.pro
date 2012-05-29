@@ -13,7 +13,9 @@ HEADERS += src/Animation.h \
            src/AnimationAbstraite.h \
            src/AnimationColoration.h \
            src/AnimationRotationY.h \
+           src/AnimationSpiral.h \
            src/Animations.h \
+           src/VictoryAnimation.h \
            src/AnimationsColorations.h \
            src/AnimationsDonne.h \
            src/AnimationsPlacerTas.h \
@@ -38,7 +40,9 @@ SOURCES += src/Animation.cpp \
            src/AnimationAbstraite.cpp \
            src/AnimationColoration.cpp \
            src/AnimationRotationY.cpp \
+           src/AnimationSpiral.cpp \
            src/Animations.cpp \
+           src/VictoryAnimation.cpp \
            src/AnimationsColorations.cpp \
            src/AnimationsDonne.cpp \
            src/AnimationsPlacerTas.cpp \
