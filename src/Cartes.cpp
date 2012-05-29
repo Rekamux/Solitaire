@@ -214,12 +214,12 @@ void Cartes::melanger(bool cheat)
 	}
 
 	// Generating this pattern
-	// 1	2	4	5	6	7	7
-	// 		1	3	4	5	6	7
-	// 			1	3	4	6	7
-	// 				1	3	5	6
-	// 					2	3	5	
-	// 						2	4
+	//	1	2	3	3	3	3	4
+	// 		1	4	4	4	5	5
+	// 			1	5	5	6	6
+	// 				1	6	6	7
+	// 					2	7	7	
+	// 						2	7
 	// 							2
 	Cartes other(*this);
 	int index = 0;
@@ -227,7 +227,17 @@ void Cartes::melanger(bool cheat)
 	int row = 0;
 	for (int card=0; card<7; card++) {
 		for (int family=0; family<4; family++) {
+			bool swappedRow = false;
+			if (row < column) {
+				// Swap position
+				row = column-row-1;
+				swappedRow = true;
+			}
+			index = (column*(column+1))/2 + row;
 			operator[](index) = other[family*13+card];
+			if (swappedRow) {
+				row = column-row-1;
+			}
 			if (column != 6) {
 				column ++;
 				row ++;
@@ -236,7 +246,6 @@ void Cartes::melanger(bool cheat)
 				column = 7-row;
 				row = 0;
 			}
-			index = (column*(column+1))/2 + row;
 		}
 	}
 	index = 7*4;
