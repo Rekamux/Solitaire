@@ -215,7 +215,7 @@ if (animations->isEmpty() && animationsColorations->isEmpty() && carteBougee == 
 	emplacements = new EmplacementG *[7];
 	for (int i=0; i<7; i++)
 	{
-		emplacements[i] = new EmplacementG(donne->retirerCartes(i, verification, true), donne -> retirerCarte());
+		emplacements[i] = new EmplacementG(donne->retirerCartes(i, verification), donne -> retirerCarte());
 		emplacements[i]->getSupportDessin()->setBrush(Qt::transparent);
 		emplacements[i]->setParentItem(this);
 		//emplacements[i]->setPos((1+i)*espaceH + i*71, 2*espaceV + 1*96);

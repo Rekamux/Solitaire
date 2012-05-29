@@ -168,7 +168,7 @@ CarteG *Cartes::retirerCarte()
 	return retour;
 }
 
-Cartes Cartes::retirerCartes(int qtite, bool &reussi, bool invert)
+Cartes Cartes::retirerCartes(int qtite, bool &reussi)
 {
 	if (qtite > nombre() || qtite < 0)
 	{
@@ -179,11 +179,6 @@ Cartes Cartes::retirerCartes(int qtite, bool &reussi, bool invert)
 	for (int i=0; i<qtite; i++)
 		retour << (takeAt(0));
 	reussi = true;
-	if (invert) {
-		for (int i=0; i<retour.size()/2; i++) {
-			retour.swap(i, retour.size()-1-i);
-		}
-	}
 	return Cartes(retour);
 }
 

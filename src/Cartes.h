@@ -51,7 +51,7 @@ class Cartes : public QList<CarteG*>
 		virtual bool ajouterCartes(const Cartes &cartes);	//Ajouter un paquet de cartes
 		virtual bool setCarte(int pos, CarteG *carte);		//Modifier une carte donnée
 		virtual CarteG *retirerCarte();						//Retirer la première carte
-		virtual Cartes retirerCartes(int nombre, bool &reussi, bool invert=false);//Retire nombre carte et met le résultat dans reussi
+		virtual Cartes retirerCartes(int nombre, bool &reussi);//Retire nombre carte et met le résultat dans reussi
 		virtual Cartes recupererCartesAvant(CarteG *carte, bool &reussi);//Récupère les cartes avant la première occurence de valeur, réussi indique la réussite
 		
 	//Méthodes
