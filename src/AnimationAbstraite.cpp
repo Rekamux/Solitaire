@@ -55,3 +55,11 @@ bool AnimationAbstraite::getEstLancee() const
 ******************************/
 
 int AnimationAbstraite::intervalle = 1000/50; //Avoir 50 images par seconde
+
+/********
+ * KILL *
+ ********/
+
+void AnimationAbstraite::kill() {
+	emit animationTerminee(getId());
+}

@@ -35,6 +35,9 @@ class AnimationSpiral : public Animation
 	//Destructeur
 		virtual ~AnimationSpiral();
 
+	// Kill
+		virtual void kill();
+
 	protected:
 		int rho;
 		qreal theta;

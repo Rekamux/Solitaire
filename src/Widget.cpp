@@ -341,6 +341,10 @@ void Widget::slotVictoryAnimation() {
 void Widget::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
 	if (hasWon) {
+		if (animation && !animations->empty()) {
+			animations->kill();
+		}
+		deal();
 		return;
 	}
 	if (chrono && !chronoLance)

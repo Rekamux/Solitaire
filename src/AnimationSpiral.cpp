@@ -72,3 +72,12 @@ void AnimationSpiral::slotDemarrer()
 	Animation::slotDemarrer();
 	carteOrigine->hide();
 }
+
+/********
+ * KILL *
+ ********/
+
+void AnimationSpiral::kill() {
+	carteOrigine->hide();
+	AnimationAbstraite::kill();
+}

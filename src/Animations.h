@@ -41,6 +41,9 @@ class Animations : public AnimationAbstraite, public QList<AnimationAbstraite *>
 		
 	//Ajouter une animation
 		virtual void ajouterAnimation(AnimationAbstraite *ajout);
+
+	// Kill all animations
+		virtual void kill();
 		
 	protected:
 		bool termineQuandVide;	//Emet ou non le signal d'auto-destruction quand l'animation est vide

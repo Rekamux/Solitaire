@@ -26,6 +26,7 @@ Animations::Animations(int decalage, bool arret) : AnimationAbstraite()
 *	SLOT DETRUIRE ANIMATION	*
 **********************************/
 
+#include <iostream>
 void Animations::slotDetruireAnimation(int id)
 {
 	bool trouve = false;
@@ -112,4 +113,18 @@ void Animations::ajouterAnimation(AnimationAbstraite *ajout)
 	}
 	else
 		QMessageBox::critical(0, "Animations incorrectes", "Ajout d'un pointeur sur Animation nul!");		
+}
+
+/********
+ * KILL *
+ ********/
+
+void Animations::kill() {
+	timer->stop();
+	for (int i=size()-1; i>=0; i--) {
+		at(i)->kill();
+		delete operator[](i);
+		removeAt(i);
+	}
+	nbALancer = 0;
 }

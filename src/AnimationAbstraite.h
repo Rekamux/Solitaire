@@ -48,7 +48,9 @@ class AnimationAbstraite : public QObject
 		virtual int getId() const;
 	//Savoir si l'animation a été lancée
 		virtual bool getEstLancee() const;
-		
+	// Kill this animation
+		virtual void kill();
+
 	protected:
 		QTimer *timer;			//Le QTimer qui gère l'animation
 		int passages;			//Le nombre de passages dans slotTimeout()
