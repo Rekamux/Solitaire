@@ -138,7 +138,7 @@ void Widget::deal(bool cheat)
 if (animations->isEmpty() && animationsColorations->isEmpty() && carteBougee == NULL && qCB == NULL)
 {
 	hasWon = false;
-	points = 0;
+	points = cheat?-615:0;
 	emit cacherPoints();
 	slotChargerOptions();
 	emit arreterChrono();
