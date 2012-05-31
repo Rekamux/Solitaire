@@ -19,6 +19,7 @@
 #define FENETREPRINCIPALE_H
 
 #include <QMainWindow>
+#include <QApplication>
 #include <QLabel>
 #include <QGraphicsScene>
 #include <QObject>
@@ -51,7 +52,7 @@ class FenetrePrincipale : public QMainWindow
 	
 	public:
 	
-		FenetrePrincipale();
+		FenetrePrincipale(QApplication *app);
 		
 	public slots:
 	

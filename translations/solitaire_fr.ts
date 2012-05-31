@@ -228,70 +228,75 @@
 <context>
     <name>Options</name>
     <message>
-        <location filename="../src/Options.cpp" line="19"/>
+        <location filename="../src/Options.cpp" line="22"/>
         <source>Options du QSolitaire</source>
         <translation>Options du QSolitaire</translation>
     </message>
     <message>
-        <location filename="../src/Options.cpp" line="23"/>
+        <location filename="../src/Options.cpp" line="26"/>
         <source>Options</source>
         <translation>Options</translation>
     </message>
     <message>
-        <location filename="../src/Options.cpp" line="33"/>
+        <location filename="../src/Options.cpp" line="36"/>
         <source>Montrer les animations</source>
         <translation>Montrer les animations</translation>
     </message>
     <message>
-        <location filename="../src/Options.cpp" line="34"/>
+        <location filename="../src/Options.cpp" line="37"/>
         <source>Chronometrer</source>
         <translation>Chronometrer</translation>
     </message>
     <message>
-        <location filename="../src/Options.cpp" line="35"/>
+        <location filename="../src/Options.cpp" line="38"/>
         <source>Compter les points</source>
         <translation>Compter les points</translation>
     </message>
     <message>
-        <location filename="../src/Options.cpp" line="36"/>
+        <location filename="../src/Options.cpp" line="39"/>
         <source>Silhouette sous déplacement</source>
         <translation>Silhouette sous déplacement</translation>
     </message>
     <message>
-        <location filename="../src/Options.cpp" line="37"/>
+        <location filename="../src/Options.cpp" line="40"/>
         <source>Tirer une carte</source>
         <translation>Tirer une carte</translation>
     </message>
     <message>
-        <location filename="../src/Options.cpp" line="38"/>
+        <location filename="../src/Options.cpp" line="41"/>
         <source>Tirer trois cartes</source>
         <translation>Tirer trois cartes</translation>
     </message>
     <message>
-        <location filename="../src/Options.cpp" line="43"/>
+        <location filename="../src/Options.cpp" line="54"/>
+        <source>Program language</source>
+        <translation>Langue</translation>
+    </message>
+    <message>
+        <location filename="../src/Options.cpp" line="59"/>
         <source>Appliquer</source>
         <translation>Appliquer</translation>
     </message>
     <message>
-        <location filename="../src/Options.cpp" line="47"/>
+        <location filename="../src/Options.cpp" line="63"/>
         <source>Annuler</source>
         <translation>Annuler</translation>
     </message>
     <message>
-        <location filename="../src/Options.cpp" line="76"/>
-        <location filename="../src/Options.cpp" line="159"/>
-        <location filename="../src/Options.cpp" line="201"/>
+        <location filename="../src/Options.cpp" line="92"/>
+        <location filename="../src/Options.cpp" line="193"/>
+        <location filename="../src/Options.cpp" line="266"/>
         <source>Erreur lors du chargement de Autre/config.conf</source>
         <translation>Erreur lors du chargement de Autre/config.conf</translation>
     </message>
     <message>
-        <location filename="../src/Options.cpp" line="76"/>
+        <location filename="../src/Options.cpp" line="92"/>
         <source>Impossible d&apos;accéder au dossier ./Autre verifiez les droits d&apos;accès. </source>
         <translation>Impossible d&apos;accéder au dossier ./Autre verifiez les droits d&apos;accès. </translation>
     </message>
     <message>
-        <location filename="../src/Options.cpp" line="159"/>
-        <location filename="../src/Options.cpp" line="201"/>
+        <location filename="../src/Options.cpp" line="193"/>
+        <location filename="../src/Options.cpp" line="266"/>
         <source>Impossible d&apos;accéder au dossier ./donnees verifiez les droits d&apos;accès. </source>
         <translation>Impossible d&apos;accéder au dossier ./donnees verifiez les droits d&apos;accès. </translation>
     </message>

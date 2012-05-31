@@ -167,7 +167,7 @@
     <message>
         <location filename="../src/FenetrePrincipale.cpp" line="135"/>
         <source>Vous pouvez commencer à jouer</source>
-        <translation>You can start playing</translation>
+        <translation>You can begin</translation>
     </message>
     <message>
         <location filename="../src/FenetrePrincipale.cpp" line="185"/>
@@ -228,70 +228,75 @@
 <context>
     <name>Options</name>
     <message>
-        <location filename="../src/Options.cpp" line="19"/>
+        <location filename="../src/Options.cpp" line="22"/>
         <source>Options du QSolitaire</source>
         <translation>QSolitaire settings</translation>
     </message>
     <message>
-        <location filename="../src/Options.cpp" line="23"/>
+        <location filename="../src/Options.cpp" line="26"/>
         <source>Options</source>
         <translation>Settings</translation>
     </message>
     <message>
-        <location filename="../src/Options.cpp" line="33"/>
+        <location filename="../src/Options.cpp" line="36"/>
         <source>Montrer les animations</source>
         <translation>Show animations</translation>
     </message>
     <message>
-        <location filename="../src/Options.cpp" line="34"/>
+        <location filename="../src/Options.cpp" line="37"/>
         <source>Chronometrer</source>
         <translation>Time game</translation>
     </message>
     <message>
-        <location filename="../src/Options.cpp" line="35"/>
+        <location filename="../src/Options.cpp" line="38"/>
         <source>Compter les points</source>
         <translation>Count points</translation>
     </message>
     <message>
-        <location filename="../src/Options.cpp" line="36"/>
+        <location filename="../src/Options.cpp" line="39"/>
         <source>Silhouette sous déplacement</source>
         <translation>Help silhouette</translation>
     </message>
     <message>
-        <location filename="../src/Options.cpp" line="37"/>
+        <location filename="../src/Options.cpp" line="40"/>
         <source>Tirer une carte</source>
         <translation>Pick one card</translation>
     </message>
     <message>
-        <location filename="../src/Options.cpp" line="38"/>
+        <location filename="../src/Options.cpp" line="41"/>
         <source>Tirer trois cartes</source>
         <translation>Pick three cards</translation>
     </message>
     <message>
-        <location filename="../src/Options.cpp" line="43"/>
+        <location filename="../src/Options.cpp" line="54"/>
+        <source>Program language</source>
+        <translation>Program language</translation>
+    </message>
+    <message>
+        <location filename="../src/Options.cpp" line="59"/>
         <source>Appliquer</source>
         <translation>Apply</translation>
     </message>
     <message>
-        <location filename="../src/Options.cpp" line="47"/>
+        <location filename="../src/Options.cpp" line="63"/>
         <source>Annuler</source>
         <translation>Cancel</translation>
     </message>
     <message>
-        <location filename="../src/Options.cpp" line="76"/>
-        <location filename="../src/Options.cpp" line="159"/>
-        <location filename="../src/Options.cpp" line="201"/>
+        <location filename="../src/Options.cpp" line="92"/>
+        <location filename="../src/Options.cpp" line="193"/>
+        <location filename="../src/Options.cpp" line="266"/>
         <source>Erreur lors du chargement de Autre/config.conf</source>
         <translation>Cannot load Autre/config.conf</translation>
     </message>
     <message>
-        <location filename="../src/Options.cpp" line="76"/>
+        <location filename="../src/Options.cpp" line="92"/>
         <source>Impossible d&apos;accéder au dossier ./Autre verifiez les droits d&apos;accès. </source>
         <translation>Cannot access folder ./Autre, check the access rights.</translation>
     </message>
     <message>
-        <location filename="../src/Options.cpp" line="159"/>
-        <location filename="../src/Options.cpp" line="201"/>
+        <location filename="../src/Options.cpp" line="193"/>
+        <location filename="../src/Options.cpp" line="266"/>
         <source>Impossible d&apos;accéder au dossier ./donnees verifiez les droits d&apos;accès. </source>
         <translation>Cannot access ./donnees, check the access rights. </translation>
     </message>

@@ -9,12 +9,15 @@
 */
 
 #include "Options.h"
+#include <QLocale>
 
 /***********************
 *	CONSTRUCTEUR	*
 ***********************/
 
-Options::Options(QWidget *parent) : QDialog(parent)
+Options::Options(QWidget *parent, QApplication *app):
+	QDialog(parent),
+	application(app)
 {
 	setWindowTitle(tr("Options du QSolitaire"));
 	
@@ -36,6 +39,19 @@ Options::Options(QWidget *parent) : QDialog(parent)
 		LGroupeCasesACocher -> addRow(tr("Silhouette sous déplacement"), checkSilhouette);
 		LGroupeCasesACocher -> addRow(tr("Tirer une carte"), radioUneCarte);
 		LGroupeCasesACocher -> addRow(tr("Tirer trois cartes"), radioTroisCartes);
+
+		languagesGroupBox = new QGroupBox(this);
+		languagesFormLayout = new QFormLayout(languagesGroupBox);
+
+		// TODO adapt to existing translations
+		languagesString[0] = "en";
+		languagesString[1] = "fr";
+		for (int i=0; i<2; i++) {
+			languagesRadioButtons[i] = new QRadioButton(languagesGroupBox);
+			languagesFormLayout->addRow(languagesString[i], languagesRadioButtons[i]);
+		}
+
+		LGroupeCasesACocher->addRow(tr("Program language"), languagesGroupBox);
 	
 	LOptions -> addWidget(groupeCasesACocher, 0, 0, 1, 2);
 	
@@ -129,8 +145,23 @@ void Options::initialiser()
 				else
 					radioUneCarte->setChecked(true);
 			}
+			else if (config->at(i)->getNom() == "language") {
+				QString l = config->at(i)->at(0);
+				// TODO adapt to existing translations
+				int j;
+				for (j=0; j<2; j++) {
+					if (l == languagesString[j]) {
+						languagesRadioButtons[j]->setChecked(true);
+						break;
+					}
+				}
+				if (j == 2) {
+					languagesRadioButtons[0]->setChecked(true);
+				}
+			}
 		}
 	}
+	updateLanguage();
 }
 
 /*****************************
@@ -155,9 +186,34 @@ void Options::reecrireConfig()
 	e = new BDDElement("point");
 	e->ajouterAttribut("0");
 	config->ajouterElement(e);
+	e = new BDDElement("language");
+	e->ajouterAttribut("en");
+	config->ajouterElement(e);
 	if (!config->enregistrerSous("Autre/config.conf"))
 		QMessageBox::critical(this, tr("Erreur lors du chargement de Autre/config.conf"), tr("Impossible d'accéder au dossier ./donnees verifiez les droits d'accès. "));
+	updateLanguage();
 	delete config;	
+}
+
+/*******************
+ * UPDATE LANGUAGE *
+ *******************/
+
+void Options::updateLanguage() {
+	BDD *config = new BDD("Autre/config.conf");
+	for (int i=0; i<config->size(); i++) {
+		if (config->at(i)->getNom() == "language") {
+			QString locale = config->at(i)->at(0);
+			QString file_start = "translations/solitaire_";
+			QTranslator translator;
+			if (!QFile(file_start + locale + QString(".qm")).exists()) {
+				locale = QString("en");
+			}
+			translator.load(file_start + locale);
+			application->installTranslator(&translator);
+			break;
+		}
+	}
 }
 
 /*****************************
@@ -197,8 +253,18 @@ void Options::slotSauverQuitter()
 	else
 		e->ajouterAttribut("3");
 	config->ajouterElement(e);
+	e = new BDDElement("language");
+	// TODO handle any count of languages
+	for (int i=0; i<2; i++) {
+		if (languagesRadioButtons[i]->isChecked()) {
+			e->ajouterAttribut(languagesString[i]);
+			break;
+		}
+	}
+	config->ajouterElement(e);
 	if (!config->enregistrerSous("Autre/config.conf"))
 		QMessageBox::critical(this, tr("Erreur lors du chargement de Autre/config.conf"), tr("Impossible d'accéder au dossier ./donnees verifiez les droits d'accès. "));
+	updateLanguage();
 	delete config;	
 	accept();
 }

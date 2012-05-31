@@ -264,13 +264,13 @@ void Widget::slotChargerOptions()
 			reecrireConfig = true;
 		}
 	}
-	if (reecrireConfig)
-	{
-		QMessageBox::information(0, "Fichier de configuration corrompu", "Veuillez choisir vos options afin de le recréer.");
-		Options *nul = new Options(0);
-		nul->reecrireConfig();
-		nul->exec();
-	}
+	//if (reecrireConfig)
+	//{
+		//QMessageBox::information(0, "Fichier de configuration corrompu", "Veuillez choisir vos options afin de le recréer.");
+		//Options *nul = new Options(0);
+		//nul->reecrireConfig();
+		//nul->exec();
+		//}
 	if (!erreurLireConfig)
 	{
 		BDD *config = new BDD("Autre/config.conf");

@@ -19,6 +19,8 @@
 #include <QRadioButton>
 #include <QPushButton>
 #include <QMessageBox>
+#include <QApplication>
+#include <QTranslator>
 
 #include "BDDElement.h"
 #include "BDD.h"
@@ -30,13 +32,16 @@ class Options : public QDialog
 	public:
 	
 		//Constructeur
-		Options(QWidget *parent);
+		Options(QWidget *parent, QApplication *app);
 			
 		//Initialiser les boutons
 		void initialiser();
 		
 		//Reecrire le fichier de config
 		void reecrireConfig();
+
+		// Change language
+		void updateLanguage();
 	
 	public slots:
 	
@@ -57,9 +62,17 @@ class Options : public QDialog
 			QCheckBox *checkSilhouette;
 			QRadioButton *radioUneCarte;
 			QRadioButton *radioTroisCartes;
+
+			QGroupBox *languagesGroupBox;
+				QFormLayout *languagesFormLayout;
+				// TODO adapt to existing translations
+				QRadioButton *languagesRadioButtons[2];
+				QString languagesString[2];
 			
 		QPushButton *boutonOk;
 		QPushButton *boutonAnnuler;
+
+		QApplication *application;
 };
 
 #endif

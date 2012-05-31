@@ -14,7 +14,7 @@
 *	Constructeur	*
 ********************/
 
-FenetrePrincipale::FenetrePrincipale() : QMainWindow()
+FenetrePrincipale::FenetrePrincipale(QApplication *app) : QMainWindow()
 {	
 	/*	Initialisation	*/
 	/////////////////////
@@ -25,7 +25,7 @@ FenetrePrincipale::FenetrePrincipale() : QMainWindow()
 	/*	OPTIONS	*/
 	////////////////
 	
-	options = new Options(this);
+	options = new Options(this, app);
 	connect(options, SIGNAL(accepted()), this, SLOT(slotChargerOptions()));
 	
 	/*	MEILLEURS SCORES	*/
