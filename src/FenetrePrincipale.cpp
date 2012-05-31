@@ -168,7 +168,7 @@ FenetrePrincipale::FenetrePrincipale(QApplication *app) : QMainWindow()
 	setCentralWidget(vue);
 	
 	connect(widgetPrincipal, SIGNAL(lancerChrono()), this, SLOT(slotLancerChrono()));
-	connect(widgetPrincipal, SIGNAL(arreterChrono()), this, SLOT(slotStopChrono()));
+	connect(widgetPrincipal, SIGNAL(arreterChrono(bool, bool)), this, SLOT(slotStopChrono(bool, bool)));
 	connect(widgetPrincipal, SIGNAL(MAJPoints(int)), this, SLOT(slotMAJPoints(int)));
 	connect(widgetPrincipal, SIGNAL(cacherPoints()), this, SLOT(slotCacherPoints()));
 	connect(widgetPrincipal, SIGNAL(montrerScore(int)), scores, SLOT(exec(int)));
@@ -290,12 +290,20 @@ void FenetrePrincipale::slotLancerChrono()
 *	SLOT STOP CHRONO	*
 ******************************/
 
-void FenetrePrincipale::slotStopChrono()
+void FenetrePrincipale::slotStopChrono(bool show, bool init)
 {
 	vide->hide();
-	labelChrono->hide();
+	if (show) {
+		labelChrono->show();
+	}
+	else {
+		labelChrono->hide();
+	}
 	chrono->stop();
 	temps = 0;
+	if (init) {
+		slotMAJChrono();
+	}
 }
 
 /*************************

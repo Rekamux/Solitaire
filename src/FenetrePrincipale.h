@@ -84,7 +84,7 @@ class FenetrePrincipale : public QMainWindow
 		void slotLancerChrono();
 		
 		//Réinitialiser le chrono
-		void slotStopChrono();
+		void slotStopChrono(bool show, bool init);
 				
 		//Mettre à jour le temps
 		void slotMAJChrono();

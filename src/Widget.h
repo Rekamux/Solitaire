@@ -90,7 +90,7 @@ class Widget : public QGraphicsWidget
 		
 	signals:
 		//Gestion du chrono
-		void arreterChrono();
+		void arreterChrono(bool, bool);
 		void lancerChrono();
 		//Gestion des points
 		void MAJPoints(int);

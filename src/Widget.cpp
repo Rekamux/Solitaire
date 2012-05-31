@@ -141,7 +141,7 @@ if (animations->isEmpty() && animationsColorations->isEmpty() && carteBougee == 
 	points = cheat?-615:0;
 	emit cacherPoints();
 	slotChargerOptions();
-	emit arreterChrono();
+	emit arreterChrono(chrono, true);
 	chronoLance = false;
 	ajouterPoints(0);
 	
@@ -609,6 +609,7 @@ void Widget::victoire()
 	if (gagne)
 	{
 		hasWon = true;
+		emit arreterChrono(chrono, false);
 		QMessageBox *message = new QMessageBox(QMessageBox::NoIcon, tr("Victoire!"), tr("Félicitations!<br />Vous avez remporté la partie!"), QMessageBox::Ok, scene()->views()[0]);
 		message->setIconPixmap(QPixmap("./Autre/victoire.jpg"));
 		message->exec();
