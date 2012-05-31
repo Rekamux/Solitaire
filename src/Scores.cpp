@@ -107,7 +107,7 @@ int Scores::exec(bool ajouter, int score)
 	if (ajouter)
 	{
 		bool ok = false;
-		QString pseudo = QInputDialog::getText(this, tr("Meilleur Score!"), tr("Vous avez cumulé ")+QString::number(score)+" points.<br />Quel est votre nom ?", QLineEdit::Normal, QString(), &ok);
+		QString pseudo = QInputDialog::getText(this, tr("Meilleur Score!"), tr("Vous avez cumulé ")+QString::number(score)+tr(" points.<br />Quel est votre nom ?"), QLineEdit::Normal, QString(), &ok);
 	
 		if (ok && !pseudo.isEmpty())
 			slotAjouterScore(pseudo, score);

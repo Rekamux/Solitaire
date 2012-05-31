@@ -609,7 +609,7 @@ void Widget::victoire()
 	if (gagne)
 	{
 		hasWon = true;
-		QMessageBox *message = new QMessageBox(QMessageBox::NoIcon, "Victoire!", "Félicitations!<br />Vous avez remporté la partie!", QMessageBox::Ok, scene()->views()[0]);
+		QMessageBox *message = new QMessageBox(QMessageBox::NoIcon, tr("Victoire!"), tr("Félicitations!<br />Vous avez remporté la partie!"), QMessageBox::Ok, scene()->views()[0]);
 		message->setIconPixmap(QPixmap("./Autre/victoire.jpg"));
 		message->exec();
 		if (message->clickedButton() == message->button(QMessageBox::Ok))
