@@ -452,51 +452,55 @@
 <context>
     <name>Scores</name>
     <message>
-        <location filename="../src/Scores.cpp" line="19"/>
+        <location filename="../src/Scores.cpp" line="22"/>
         <source>Meilleurs Scores du QSolitaire</source>
         <translation>Best QSolitaire scores</translation>
     </message>
     <message>
-        <location filename="../src/Scores.cpp" line="45"/>
-        <location filename="../src/Scores.cpp" line="74"/>
-        <location filename="../src/Scores.cpp" line="97"/>
+        <location filename="../src/Scores.cpp" line="58"/>
+        <location filename="../src/Scores.cpp" line="101"/>
         <source>Erreur lors du chargement de Autre/scores.conf</source>
         <translation>Error while loading Autre/scores.conf</translation>
     </message>
     <message>
-        <location filename="../src/Scores.cpp" line="45"/>
-        <location filename="../src/Scores.cpp" line="74"/>
-        <location filename="../src/Scores.cpp" line="97"/>
+        <location filename="../src/Scores.cpp" line="58"/>
+        <location filename="../src/Scores.cpp" line="101"/>
+        <location filename="../src/Scores.cpp" line="122"/>
         <source>Impossible d&apos;accéder au dossier ./Autre verifiez les droits d&apos;accès. </source>
         <translation>Cannot acces folder ./Autre, check access rights.</translation>
     </message>
     <message>
-        <location filename="../src/Scores.cpp" line="54"/>
+        <location filename="../src/Scores.cpp" line="75"/>
         <source>&lt;h1 style=&apos;text-align:center;&apos;&gt;Meilleurs Scores&lt;/h1&gt;</source>
         <translation>&lt;h1 style=&apos;text-align:center;&apos;&gt;Best Scores&lt;/h1&gt;</translation>
     </message>
     <message>
-        <location filename="../src/Scores.cpp" line="60"/>
-        <source>&lt;tr&gt;&lt;td&gt;</source>
-        <translation>&lt;tr&gt;&lt;td&gt;</translation>
+        <location filename="../src/Scores.cpp" line="76"/>
+        <source>&lt;table&gt;&lt;tr&gt;&lt;th&gt;Nom&lt;/th&gt;&lt;th&gt;Score&lt;/th&gt;&lt;/tr&gt;</source>
+        <translation>&lt;table&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Score&lt;/th&gt;&lt;/tr&gt;</translation>
     </message>
     <message>
-        <location filename="../src/Scores.cpp" line="60"/>
-        <source>&lt;/td&gt;&lt;td&gt;</source>
-        <translation>&lt;/td&gt;&lt;td&gt;</translation>
+        <location filename="../src/Scores.cpp" line="85"/>
+        <source>&lt;h1 style=&apos;text-align:center;&apos;&gt;No best score saved&lt;/h1&gt;</source>
+        <translation>&lt;h1 style=&apos;text-align:center;&apos;&gt;No best score saved&lt;/h1&gt;</translation>
     </message>
     <message>
-        <location filename="../src/Scores.cpp" line="110"/>
+        <location filename="../src/Scores.cpp" line="122"/>
+        <source>Erreur lors du chargement de </source>
+        <translation>Error while loading </translation>
+    </message>
+    <message>
+        <location filename="../src/Scores.cpp" line="136"/>
         <source>Meilleur Score!</source>
         <translation>Best Score!</translation>
     </message>
     <message>
-        <location filename="../src/Scores.cpp" line="110"/>
+        <location filename="../src/Scores.cpp" line="136"/>
         <source>Vous avez cumulé </source>
         <translation>You have </translation>
     </message>
     <message>
-        <location filename="../src/Scores.cpp" line="110"/>
+        <location filename="../src/Scores.cpp" line="136"/>
         <source> points.&lt;br /&gt;Quel est votre nom ?</source>
         <translation> points.&lt;br /&gt;What is your name?</translation>
     </message>

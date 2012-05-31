@@ -615,7 +615,7 @@ void Widget::victoire()
 		if (message->clickedButton() == message->button(QMessageBox::Ok))
 		{
 			if (compterPoints) {
-				emit montrerScore(true, points);
+				emit montrerScore(points);
 			}
 			if (animation) {
 				slotVictoryAnimation();

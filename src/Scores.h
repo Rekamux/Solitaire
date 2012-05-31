@@ -27,7 +27,10 @@ class Scores : public QDialog
 	public:
 	
 		//Constructeur
-		Scores(QWidget *parent);
+		Scores(QWidget *parent, QString fileName);
+
+		//Destructor
+		~Scores();
 		
 		//Reecrire le fichier de scores
 		void reecrireScores();
@@ -38,13 +41,15 @@ class Scores : public QDialog
 		void slotAjouterScore(QString nom, int score);
 		
 		//Executer la fenetre
-		int exec(bool ajouter, int score);
+		int exec(int score);
 		int exec();
 	
 	private:
 	
 		void initialiser();
 		QLabel *label;
+		QString fileName;
+		BDD *scoresDB;
 };
 
 #endif

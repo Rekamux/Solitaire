@@ -31,7 +31,7 @@ FenetrePrincipale::FenetrePrincipale() : QMainWindow()
 	/*	MEILLEURS SCORES	*/
 	//////////////////////////
 	
-	scores = new Scores(this);
+	scores = new Scores(this, "Fonds/scores.conf");
 
 
 	/* 	Menu		*/
@@ -171,7 +171,7 @@ FenetrePrincipale::FenetrePrincipale() : QMainWindow()
 	connect(widgetPrincipal, SIGNAL(arreterChrono()), this, SLOT(slotStopChrono()));
 	connect(widgetPrincipal, SIGNAL(MAJPoints(int)), this, SLOT(slotMAJPoints(int)));
 	connect(widgetPrincipal, SIGNAL(cacherPoints()), this, SLOT(slotCacherPoints()));
-	connect(widgetPrincipal, SIGNAL(montrerScore(bool, int)), scores, SLOT(exec(bool, int)));
+	connect(widgetPrincipal, SIGNAL(montrerScore(int)), scores, SLOT(exec(int)));
 	
 	QTimer::singleShot(100, this, SLOT(slotDonne()));
 }

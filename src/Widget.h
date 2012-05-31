@@ -96,7 +96,7 @@ class Widget : public QGraphicsWidget
 		void MAJPoints(int);
 		void cacherPoints();
 		//Gestion du score
-		void montrerScore(bool, int);
+		void montrerScore(int);
 		
 	protected:
 		// Is game playable (false if won)

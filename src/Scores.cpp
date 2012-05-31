@@ -14,7 +14,10 @@
 *	CONSTRUCTEUR	*
 ***********************/
 
-Scores::Scores(QWidget *parent) : QDialog(parent)
+Scores::Scores(QWidget *parent, QString fileName):
+	QDialog(parent),
+	fileName(fileName),
+	scoresDB(NULL)
 {
 	setWindowTitle(tr("Meilleurs Scores du QSolitaire"));
 
@@ -23,6 +26,16 @@ Scores::Scores(QWidget *parent) : QDialog(parent)
 	setGeometry(200, 200, 300, 400);
 	
 	initialiser();
+}
+
+/**************
+ * DESTRUCTOR *
+ **************/
+
+Scores::~Scores() {
+	if (scoresDB) {
+		delete scoresDB;
+	}
 }
 
 /***********************
@@ -36,30 +49,41 @@ void Scores::initialiser()
 	QDir dossierCourant;
 	if (dossierCourant.exists("Autre"))
 	{
-		if (!QFile::exists("Autre/scores.conf"))
+		if (!QFile::exists(fileName))
 			reecrireScores = true;
 	}
-	else
+	else {
 		if (!dossierCourant.mkdir("Autre"))
 		{
 			QMessageBox::critical(this, tr("Erreur lors du chargement de Autre/scores.conf"), tr("Impossible d'accéder au dossier ./Autre verifiez les droits d'accès. "));
 			erreurLireScores = true;
 		}
-		else
+		else {
 			reecrireScores = true;
-	if (reecrireScores)
+		}
+	}
+
+	if (reecrireScores) {
 		this->reecrireScores();
+	}
+	else {
+		scoresDB = new BDD(fileName);
+	}
 	if (!erreurLireScores)
 	{
-		label->setText(tr("<h1 style='text-align:center;'>Meilleurs Scores</h1>"));
-		BDD *scores = new BDD("Autre/scores.conf");
-		label->setText(label->text()+"<table><tr><th>Nom</th><th>Score</th></tr>");
-		for (int i=0; i<scores->size(); i++)
-		{
-			if (scores->at(i)->size()!=0)
-				label->setText(label->text()+tr("<tr><td>")+scores->at(i)->getNom()+tr("</td><td>")+scores->at(i)->at(0)+"</td></tr>");
+		if (scoresDB->size()) {
+			label->setText(tr("<h1 style='text-align:center;'>Meilleurs Scores</h1>"));
+			label->setText(label->text()+tr("<table><tr><th>Nom</th><th>Score</th></tr>"));
+			for (int i=0; i<scoresDB->size(); i++)
+			{
+				if (scoresDB->at(i)->size()!=0)
+					label->setText(label->text()+"<tr><td>"+scoresDB->at(i)->getNom()+"</td><td style='text-align:right;'>"+scoresDB->at(i)->at(0)+"</td></tr>");
+			}
+			label->setText(label->text()+"</table>");
 		}
-		label->setText(label->text()+"</table>");
+		else {
+			label->setText(tr("<h1 style='text-align:center;'>No best score saved</h1>"));
+		}
 	}
 }
 
@@ -69,10 +93,12 @@ void Scores::initialiser()
 
 void Scores::reecrireScores()
 {
-	BDD *score = new BDD("Autre/scores.conf");
-	if (!score->enregistrerSous("Autre/scores.conf"))
+	if (scoresDB) {
+		delete scoresDB;
+	}
+	scoresDB = new BDD();
+	if (!scoresDB->enregistrerSous(fileName))
 		QMessageBox::critical(this, tr("Erreur lors du chargement de Autre/scores.conf"), tr("Impossible d'accéder au dossier ./Autre verifiez les droits d'accès. "));
-	delete score;	
 }
 
 /*****************************
@@ -81,36 +107,40 @@ void Scores::reecrireScores()
 
 void Scores::slotAjouterScore(QString nom, int score)
 {
-	BDD *scoreDB = new BDD("Autre/scores.conf");
 	BDDElement *e = new BDDElement(nom);
 	e->ajouterAttribut(QString::number(score));
-	int indice = scoreDB->size();
+	int indice = scoresDB->size();
 	bool trouve = false;
-	for (int i=0; i<scoreDB->size() && !trouve; i++)
-		if (scoreDB->at(i)->size()!=0 && scoreDB->at(i)->at(0).toInt()<score)
+	for (int i=0; i<scoresDB->size() && !trouve; i++)
+		if (scoresDB->at(i)->size()!=0 && scoresDB->at(i)->at(0).toInt()<score)
 		{
 			indice = i;
 			trouve = true;
 		}
-	scoreDB->insert(indice, e);
-	if (!scoreDB->enregistrerSous("Autre/scores.conf"))
-		QMessageBox::critical(this, tr("Erreur lors du chargement de Autre/scores.conf"), tr("Impossible d'accéder au dossier ./Autre verifiez les droits d'accès. "));
-	delete scoreDB;	
+	scoresDB->insert(indice, e);
+	if (!scoresDB->enregistrerSous(fileName))
+		QMessageBox::critical(this, tr("Erreur lors du chargement de ")+fileName, tr("Impossible d'accéder au dossier ./Autre verifiez les droits d'accès. "));
 }
 
 /***************
 *	EXEC	*
 ***************/
 
-int Scores::exec(bool ajouter, int score)
+int Scores::exec(int score)
 {
-	if (ajouter)
+	int size = scoresDB->size();
+	int lowestScore = size?scoresDB->at(size-1)->at(0).toInt():0;
+	if (lowestScore < score)
 	{
 		bool ok = false;
 		QString pseudo = QInputDialog::getText(this, tr("Meilleur Score!"), tr("Vous avez cumulé ")+QString::number(score)+tr(" points.<br />Quel est votre nom ?"), QLineEdit::Normal, QString(), &ok);
 	
 		if (ok && !pseudo.isEmpty())
 			slotAjouterScore(pseudo, score);
+		while (size>10) {
+			scoresDB->removeAt(scoresDB->size()-1);
+			size = scoresDB->size();
+		}
 	
 		initialiser();
 	}
