@@ -9,6 +9,9 @@
 */
 
 #include "FenetrePrincipale.h"
+#include <iostream>
+
+using namespace std;
 
 /********************
 *	Constructeur	*
@@ -161,8 +164,8 @@ FenetrePrincipale::FenetrePrincipale(QApplication *app) : QMainWindow()
 		
 			widgetPrincipal -> setGeometry(scene -> sceneRect());
 
-		vue->setMinimumSize(QSize(577, 402));
-		vue->setGeometry(0, 0, 577, 402);
+		vue->setMinimumSize(QSize(587, 412));
+		vue->setGeometry(0, 0, 587, 412);
 
 	
 	setCentralWidget(vue);
@@ -363,12 +366,9 @@ void FenetrePrincipale::slotCacherPoints()
 //Largeur minimale = 497 + 8*10 = 577px
 //Hauteur minimale = 372 + 3*10 = 402px
 
-void FenetrePrincipale::resizeEvent(QResizeEvent *)
+void FenetrePrincipale::resizeEvent(QResizeEvent *e)
 {
-	QSize taille = vue -> size();
-	int l = taille.width();
-	int h = taille.height();
-	scene -> setSceneRect(0, 0, l, h);
-	widgetPrincipal -> setGeometry(scene -> sceneRect());
-	widgetPrincipal -> resizeEvent(l, h);
+	//widgetPrincipal->setGeometry(scene -> sceneRect());
+	widgetPrincipal -> resize();
+	QMainWindow::resizeEvent(e);
 }

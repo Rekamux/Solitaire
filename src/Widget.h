@@ -71,7 +71,7 @@ class Widget : public QGraphicsWidget
 		
 		~Widget();
 		
-		void resizeEvent(int, int);
+		void resize();
 		
 		void changerFond(QString);
 		

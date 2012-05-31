@@ -9,6 +9,9 @@
 */
 
 #include "Widget.h"
+#include <iostream>
+
+using namespace std;
 
 /***********************
 *	CONSTRUCTEUR	*
@@ -129,14 +132,15 @@ void Widget::retournerCarteDonne()
 	}
 }
 
-/********************
-*	SLOT DONNE	*
-********************/
+/************
+*	DEAL	*
+*************/
 
 void Widget::deal(bool cheat)
 {
-if (animations->isEmpty() && animationsColorations->isEmpty() && carteBougee == NULL && qCB == NULL)
-{
+	if (!animations->isEmpty() || !animationsColorations->isEmpty() || carteBougee || qCB) {
+		return;
+	}
 	hasWon = false;
 	points = cheat?-615:0;
 	emit cacherPoints();
@@ -144,15 +148,15 @@ if (animations->isEmpty() && animationsColorations->isEmpty() && carteBougee == 
 	emit arreterChrono(chrono, true);
 	chronoLance = false;
 	ajouterPoints(0);
-	
+
 	/*	Réinitailisation du moteur du jeu	*/
 	////////////////////////////////////
-	
+
 	if (donne != NULL)
 		delete donne;
 	if (receveurDonne != NULL)
 		delete receveurDonne;
-		
+
 	if (casesBut != NULL)
 	{
 		for (int i=0; i<4; i++)
@@ -160,7 +164,7 @@ if (animations->isEmpty() && animationsColorations->isEmpty() && carteBougee == 
 				delete casesBut[i];
 		delete []casesBut;
 	}
-	
+
 	if (emplacements != NULL)
 	{
 		for (int i=0; i<7; i++)
@@ -168,7 +172,7 @@ if (animations->isEmpty() && animationsColorations->isEmpty() && carteBougee == 
 				delete emplacements[i];
 		delete []emplacements;
 	}
-		
+
 	if (cartes != NULL)
 		delete []cartes;
 
@@ -177,29 +181,29 @@ if (animations->isEmpty() && animationsColorations->isEmpty() && carteBougee == 
 
 	/*	Initialisation	*/
 	/////////////////////
-	
+
 	qreal espaceH = (rect().width() - 497) / 8;
 	qreal espaceV = (rect().height() - 372) / 3;	
-	
+
 	Cartes aDonner(52, this, fond);
-	
+
 	cartes = new CarteG *[52];
 	for (int i=0; i<52; i++)
 		cartes[i] = aDonner.getCarte(i);
 	aDonner.melanger(cheat);
-	
+
 	donne = new DonneG(aDonner, QPixmap("Autre/fondDonne.bmp"));
-		donne->setParentItem(this);
-		donne->setPos(1*espaceH + 0*71, 1*espaceV);
+	donne->setParentItem(this);
+	donne->setPos(1*espaceH + 0*71, 1*espaceV);
 	cartesDonne = new CarteG *[52];
 	for (int i=0; i<52; i++)
 		cartesDonne[i] = aDonner.getCarte(i);	
-		
+
 	receveurDonne = new ReceveurDonneG();
-		receveurDonne->getSupportDessin()->setBrush(Qt::transparent);
-		receveurDonne->setParentItem(this);
-		receveurDonne->setPos(2*espaceH + 1*71, 1*espaceV);
-	
+	receveurDonne->getSupportDessin()->setBrush(Qt::transparent);
+	receveurDonne->setParentItem(this);
+	receveurDonne->setPos(2*espaceH + 1*71, 1*espaceV);
+
 	casesBut = new CaseButG *[4];
 	for (int i=0; i<4; i++)
 	{
@@ -207,10 +211,10 @@ if (animations->isEmpty() && animationsColorations->isEmpty() && carteBougee == 
 		casesBut[i]->setParentItem(this);
 		casesBut[i]->setPos((4+i)*espaceH + (3+i)*71, 1*espaceV);
 	}
-	
+
 	/*	Distribution des cartes	*/
 	///////////////////////////////
-	
+
 	bool verification;
 	emplacements = new EmplacementG *[7];
 	for (int i=0; i<7; i++)
@@ -222,7 +226,7 @@ if (animations->isEmpty() && animationsColorations->isEmpty() && carteBougee == 
 		if (!verification)
 			QMessageBox::critical(0, "Deal de Widget.cc", "Erreur lors du retrait des cartes de la donne");
 	}
-	
+
 	if (animation)
 	{
 		for (int i=0; i<52; i++)
@@ -231,9 +235,8 @@ if (animations->isEmpty() && animationsColorations->isEmpty() && carteBougee == 
 		}
 		QTimer::singleShot(1, this, SLOT(slotAnimationDonne()));
 	}
-		
-	resizeEvent((int)(rect().width()), (int)(rect().height()));
-}
+
+	resize();
 }
 
 /************************************
@@ -242,70 +245,42 @@ if (animations->isEmpty() && animationsColorations->isEmpty() && carteBougee == 
 
 void Widget::slotChargerOptions()
 {
-	bool reecrireConfig = false;
 	bool erreurLireConfig = false;
 	QDir dossierCourant;
-	if (dossierCourant.exists("Autre"))
-	{
-		if (!QFile::exists("Autre/config.conf"))
-		{
-			reecrireConfig = true;
-		}
-	}
-	else
-	{
-		if (!dossierCourant.mkdir("donnees"))
-		{
+	if (!dossierCourant.exists("Autre")) {
+		if (!dossierCourant.mkdir("donnees")) {
 			QMessageBox::critical(0, tr("Erreur lors du chargement de Autre/config.conf"), tr("Impossible d'accéder au dossier ./donnees verifiez les droits d'accès. "));
 			erreurLireConfig = true;
 		}
-		else
-		{
-			reecrireConfig = true;
+	}
+	if (erreurLireConfig) {
+		return;
+	}
+	BDD *config = new BDD("Autre/config.conf");
+	for (int i=0; i<config->size(); i++) {
+		if (config->at(i)->getNom() == "animation") {
+			int valeur = config->at(i)->at(0).toInt();
+			animation = (valeur == 1);
+		}
+		else if (config->at(i)->getNom() == "chrono") {
+			int valeur = config->at(i)->at(0).toInt();
+			chrono = (valeur == 1);
+		}
+		else if (config->at(i)->getNom() == "silhouette") {
+			int valeur = config->at(i)->at(0).toInt();
+			silhouette = (valeur == 1);
+		}
+		else if (config->at(i)->getNom() == "nb_cartes_donnees") {
+			if (config->at(i)->at(0).toInt() == 3)
+				nbCartesDistribuees = 3;
+			else
+				nbCartesDistribuees = 1;
+		}
+		else if (config->at(i)->getNom() == "points") {
+			int valeur = config->at(i)->at(0).toInt();
+			compterPoints = (valeur == 1);
 		}
 	}
-	//if (reecrireConfig)
-	//{
-		//QMessageBox::information(0, "Fichier de configuration corrompu", "Veuillez choisir vos options afin de le recréer.");
-		//Options *nul = new Options(0);
-		//nul->reecrireConfig();
-		//nul->exec();
-		//}
-	if (!erreurLireConfig)
-	{
-		BDD *config = new BDD("Autre/config.conf");
-		for (int i=0; i<config->size(); i++)
-		{
-			if (config->at(i)->getNom() == "animation")
-			{
-				int valeur = config->at(i)->at(0).toInt();
-				animation = (valeur == 1);
-			}
-			else if (config->at(i)->getNom() == "chrono")
-			{
-				int valeur = config->at(i)->at(0).toInt();
-				chrono = (valeur == 1);
-			}
-			else if (config->at(i)->getNom() == "silhouette")
-			{
-				int valeur = config->at(i)->at(0).toInt();
-				silhouette = (valeur == 1);
-			}
-			else if (config->at(i)->getNom() == "nb_cartes_donnees")
-			{
-				if (config->at(i)->at(0).toInt() == 3)
-					nbCartesDistribuees = 3;
-				else
-					nbCartesDistribuees = 1;
-			}
-			else if (config->at(i)->getNom() == "points")
-			{
-				int valeur = config->at(i)->at(0).toInt();
-				compterPoints = (valeur == 1);
-			}
-		}
-	}
-
 }
 
 /**********************************
@@ -540,15 +515,16 @@ void Widget::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 		event->ignore();
 }
 
-/***********************
-*	RESIZE EVENT	*
-***********************/
+/************
+*	RESIZE	*
+*************/
 
-void Widget::resizeEvent(int l, int h)
+void Widget::resize()
 {
+	int l = rect().width();
+	int h = rect().height();
 	int espaceH = (l - 497) / 8;
 	int espaceV = (h - 372) / 3;
-	
 	donne -> setPos(1*espaceH + 0*71, 1*espaceV);
 	receveurDonne -> setPos(2*espaceH + 1*71, 1*espaceV);
 	
