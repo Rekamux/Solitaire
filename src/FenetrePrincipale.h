@@ -40,6 +40,7 @@
 #include <QResizeEvent>
 #include <QDialog>
 #include <QFile>
+#include <QEvent>
 #include <QDir>
 
 #include "Options.h"
@@ -154,6 +155,13 @@ class FenetrePrincipale : public QMainWindow
 		
 		//Fenetre de meilleurs scores
 		Scores *scores;
+
+	protected:
+		/** Retranslate */
+		virtual void retranslate();
+
+		/** Change event */
+		virtual void changeEvent(QEvent *);
 };
 
 #endif

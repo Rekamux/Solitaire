@@ -12,9 +12,9 @@
 #define OPTIONS_H
 
 #include <QDialog>
-#include <QGridLayout>
 #include <QGroupBox>
-#include <QFormLayout>
+#include <QGridLayout>
+#include <QLabel>
 #include <QCheckBox>
 #include <QRadioButton>
 #include <QPushButton>
@@ -54,25 +54,38 @@ class Options : public QDialog
 		
 		//Cases à cocher
 		QGroupBox *groupeCasesACocher;
-			QFormLayout *LGroupeCasesACocher;
+			QGridLayout *LGroupeCasesACocher;
 			
+			QLabel *labelAnimation;
 			QCheckBox *checkAnimation;
+			QLabel *labelChrono;
 			QCheckBox *checkChrono;
+			QLabel *labelPoints;
 			QCheckBox *checkPoints;
+			QLabel *labelSilhouette;
 			QCheckBox *checkSilhouette;
+			QLabel *labelUneCarte;
 			QRadioButton *radioUneCarte;
+			QLabel *labelTroisCartes;
 			QRadioButton *radioTroisCartes;
 
 			QGroupBox *languagesGroupBox;
-				QFormLayout *languagesFormLayout;
+				QGridLayout *languagesLayout;
 				// TODO adapt to existing translations
+				QLabel *languagesLabels[2];
 				QRadioButton *languagesRadioButtons[2];
-				QString languagesString[2];
+				QString languagesStrings[2];
 			
 		QPushButton *boutonOk;
 		QPushButton *boutonAnnuler;
 
 		QApplication *application;
+	protected:
+		/** Retranslate */
+		virtual void retranslate();
+
+		/** Change event */
+		virtual void changeEvent(QEvent *);
 };
 
 #endif

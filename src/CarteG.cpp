@@ -234,3 +234,39 @@ QStringList CarteG::listeFamille = (QStringList() << QObject::tr("Pique") << QOb
 QStringList CarteG::listeCouleur = (QStringList() << QObject::tr("Noir") << QObject::tr("Rouge"));
 
 QString CarteG::fond = "";
+
+/***************
+ * RETRANSLATE *
+ ***************/
+void CarteG::retranslate() {
+	listeValeur = (QStringList()
+			<< QObject::tr("As")
+			<< QObject::tr("Deux")
+			<< QObject::tr("Trois")
+			<< QObject::tr("Quatre")
+			<< QObject::tr("Cinq")
+			<< QObject::tr("Six")
+			<< QObject::tr("Sept")
+			<< QObject::tr("Huit")
+			<< QObject::tr("Neuf")
+			<< QObject::tr("Dix")
+			<< QObject::tr("Valet")
+			<< QObject::tr("Dame")
+			<< QObject::tr("Roi"));
+	listeFamille = (QStringList()
+			<< QObject::tr("Pique")
+			<< QObject::tr("Trefle")
+			<< QObject::tr("Coeur")
+			<< QObject::tr("Carreau"));
+	listeCouleur = (QStringList()
+			<< QObject::tr("Noir")
+			<< QObject::tr("Rouge"));
+}
+
+void CarteG::changeEvent(QEvent* event)
+{
+	if (event->type() == QEvent::LanguageChange) {
+		retranslate();
+	}
+}
+

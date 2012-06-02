@@ -16,6 +16,7 @@
 #include <QMessageBox>
 #include <QInputDialog>
 #include <QLineEdit>
+#include <QEvent>
 
 #include "BDDElement.h"
 #include "BDD.h"
@@ -50,6 +51,13 @@ class Scores : public QDialog
 		QLabel *label;
 		QString fileName;
 		BDD *scoresDB;
+
+	protected:
+		/** Retranslate */
+		virtual void retranslate();
+
+		/** Change event */
+		virtual void changeEvent(QEvent *);
 };
 
 #endif

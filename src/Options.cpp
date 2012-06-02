@@ -26,34 +26,61 @@ Options::Options(QWidget *parent, QApplication *app):
 	LOptions = new QGridLayout(this);
 	
 	groupeCasesACocher = new QGroupBox(tr("Options"), this);
-		LGroupeCasesACocher = new QFormLayout(groupeCasesACocher);
+		LGroupeCasesACocher = new QGridLayout(groupeCasesACocher);
 	
+		labelAnimation = new QLabel(tr("Montrer les animations"));
 		checkAnimation = new QCheckBox(groupeCasesACocher);
-		checkChrono = new QCheckBox(groupeCasesACocher);
-		checkPoints = new QCheckBox(groupeCasesACocher);
-		checkSilhouette = new QCheckBox(groupeCasesACocher);
-		radioUneCarte = new QRadioButton(groupeCasesACocher);
-		radioTroisCartes = new QRadioButton(groupeCasesACocher);
-		
-		LGroupeCasesACocher -> addRow(tr("Montrer les animations"), checkAnimation);
-		LGroupeCasesACocher -> addRow(tr("Chronometrer"), checkChrono);
-		LGroupeCasesACocher -> addRow(tr("Compter les points"), checkPoints);
-		LGroupeCasesACocher -> addRow(tr("Silhouette sous déplacement"), checkSilhouette);
-		LGroupeCasesACocher -> addRow(tr("Tirer une carte"), radioUneCarte);
-		LGroupeCasesACocher -> addRow(tr("Tirer trois cartes"), radioTroisCartes);
+		labelAnimation->setBuddy(checkAnimation);
+		LGroupeCasesACocher->addWidget(labelAnimation, 0, 0);
+		LGroupeCasesACocher->addWidget(checkAnimation, 0, 1);
 
-		languagesGroupBox = new QGroupBox(this);
-		languagesFormLayout = new QFormLayout(languagesGroupBox);
+		labelChrono = new QLabel(tr("Chronometrer"));
+		checkChrono = new QCheckBox(groupeCasesACocher);
+		labelChrono->setBuddy(checkChrono);
+		LGroupeCasesACocher->addWidget(labelChrono, 1, 0);
+		LGroupeCasesACocher->addWidget(checkChrono, 1, 1);
+
+		labelPoints = new QLabel(tr("Compter les points"));
+		checkPoints = new QCheckBox(groupeCasesACocher);
+		labelPoints->setBuddy(checkPoints);
+		LGroupeCasesACocher->addWidget(labelPoints, 2, 0);
+		LGroupeCasesACocher->addWidget(checkPoints, 2, 1);
+
+		labelSilhouette = new QLabel(tr("Silhouette sous déplacement"));
+		checkSilhouette = new QCheckBox(groupeCasesACocher);
+		labelSilhouette->setBuddy(checkSilhouette);
+		LGroupeCasesACocher->addWidget(labelSilhouette, 3, 0);
+		LGroupeCasesACocher->addWidget(checkSilhouette, 3, 1);
+
+		labelUneCarte = new QLabel(tr("Tirer une carte"));
+		radioUneCarte = new QRadioButton(groupeCasesACocher);
+		labelUneCarte->setBuddy(radioUneCarte);
+		LGroupeCasesACocher->addWidget(labelUneCarte, 4, 0);
+		LGroupeCasesACocher->addWidget(radioUneCarte, 4, 1);
+
+		labelTroisCartes = new QLabel(tr("Tirer trois cartes"));
+		radioTroisCartes = new QRadioButton(groupeCasesACocher);
+		labelTroisCartes->setBuddy(radioTroisCartes);
+		LGroupeCasesACocher->addWidget(labelTroisCartes, 5, 0);
+		LGroupeCasesACocher->addWidget(radioTroisCartes, 5, 1);
+		
+		languagesGroupBox = new QGroupBox(tr("Program language"), this);
+		languagesLayout = new QGridLayout(languagesGroupBox);
 
 		// TODO adapt to existing translations
-		languagesString[0] = "en";
-		languagesString[1] = "fr";
+		languagesStrings[0] = "en";
+		languagesStrings[1] = "fr";
 		for (int i=0; i<2; i++) {
+			languagesLabels[i] = new QLabel(languagesStrings[i]);
 			languagesRadioButtons[i] = new QRadioButton(languagesGroupBox);
-			languagesFormLayout->addRow(languagesString[i], languagesRadioButtons[i]);
+			languagesLabels[i]->setBuddy(languagesRadioButtons[i]);
+			languagesLayout->addWidget(languagesLabels[i], i, 0);
+			languagesLayout->addWidget(languagesRadioButtons[i], i, 1);
 		}
+		languagesGroupBox->setLayout(languagesLayout);
 
-		LGroupeCasesACocher->addRow(tr("Program language"), languagesGroupBox);
+		LGroupeCasesACocher->addWidget(languagesGroupBox, 6, 0, 1, 2);
+	groupeCasesACocher->setLayout(LGroupeCasesACocher);
 	
 	LOptions -> addWidget(groupeCasesACocher, 0, 0, 1, 2);
 	
@@ -152,7 +179,7 @@ void Options::initialiser()
 				// TODO adapt to existing translations
 				int j;
 				for (j=0; j<2; j++) {
-					if (l == languagesString[j]) {
+					if (l == languagesStrings[j]) {
 						languagesRadioButtons[j]->setChecked(true);
 						break;
 					}
@@ -207,12 +234,12 @@ void Options::updateLanguage() {
 		if (config->at(i)->getNom() == "language") {
 			QString locale = config->at(i)->at(0);
 			QString file_start = "translations/solitaire_";
-			QTranslator translator;
+			QTranslator *translator = new QTranslator();
 			if (!QFile(file_start + locale + QString(".qm")).exists()) {
 				locale = QString("en");
 			}
-			translator.load(file_start + locale);
-			application->installTranslator(&translator);
+			translator->load(file_start + locale);
+			application->installTranslator(translator);
 			break;
 		}
 	}
@@ -259,7 +286,7 @@ void Options::slotSauverQuitter()
 	// TODO handle any count of languages
 	for (int i=0; i<2; i++) {
 		if (languagesRadioButtons[i]->isChecked()) {
-			e->ajouterAttribut(languagesString[i]);
+			e->ajouterAttribut(languagesStrings[i]);
 			break;
 		}
 	}
@@ -269,4 +296,33 @@ void Options::slotSauverQuitter()
 	updateLanguage();
 	delete config;	
 	accept();
+}
+
+void Options::changeEvent(QEvent* event)
+{
+	if (event->type() == QEvent::LanguageChange) {
+		retranslate();
+	}
+
+	QDialog::changeEvent(event);
+}
+
+/***************
+ * RETRANSLATE *
+ ***************/
+void Options::retranslate() {
+	setWindowTitle(tr("Options du QSolitaire"));
+
+	groupeCasesACocher->setTitle(tr("Options"));
+	labelAnimation->setText(tr("Montrer les animations"));
+	labelChrono->setText(tr("Chronometrer"));
+	labelPoints->setText(tr("Compter les points"));
+	labelSilhouette->setText(tr("Silhouette sous déplacement"));
+	labelUneCarte->setText(tr("Tirer une carte"));
+	labelTroisCartes->setText(tr("Tirer trois cartes"));
+
+	languagesGroupBox->setTitle(tr("Program language"));
+
+	boutonOk->setText(tr("Appliquer"));
+	boutonAnnuler->setText(tr("Annuler"));
 }

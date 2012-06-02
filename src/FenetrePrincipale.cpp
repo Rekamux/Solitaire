@@ -235,7 +235,6 @@ void FenetrePrincipale::slotProposerFonds()
 		images[i].truncate(images[i].size()-4);
 		QAction *actionChoixFond = menuFonds -> addAction(images[i]);
 			actionChoixFond -> setIcon(QIcon("./Fonds/"+image));
-			actionChoixFond -> setStatusTip(tr("Changer l'image de fond des cartes"));
 		barreOutils -> addAction(actionChoixFond);
 		connect(actionChoixFond, SIGNAL(triggered()), fondMapper, SLOT(map()));
 		fondMapper -> setMapping(actionChoixFond, image);
@@ -371,4 +370,44 @@ void FenetrePrincipale::resizeEvent(QResizeEvent *e)
 	//widgetPrincipal->setGeometry(scene -> sceneRect());
 	widgetPrincipal -> resize();
 	QMainWindow::resizeEvent(e);
+}
+
+void FenetrePrincipale::changeEvent(QEvent* event)
+{
+	if (event->type() == QEvent::LanguageChange) {
+		retranslate();
+	}
+
+	QMainWindow::changeEvent(event);
+}
+
+/***************
+ * RETRANSLATE *
+ ***************/
+void FenetrePrincipale::retranslate() {
+	slotMAJChrono();
+	setWindowTitle(tr("QSolitaire"));
+	menuPartie->setTitle(tr("Partie"));
+	actionDonne->setText(tr("Donner"));
+	actionDonne->setStatusTip(tr("Distribue une nouvelle partie"));
+	actionRegles->setText(tr("Règles"));
+	actionRegles->setStatusTip(tr("Règles du QSolitaire"));
+	actionOptions->setText(tr("Options"));
+	actionOptions->setStatusTip(tr("Parametrer QSolitaire"));
+	actionScores->setText(tr("Scores"));
+	actionScores->setStatusTip(tr("Les meilleurs scores"));
+	actionQuitter->setText(tr("Quitter"));
+	actionQuitter->setStatusTip(tr("Quitte le programme"));
+	menuFonds->setTitle(tr("Fonds"));
+	actionAideFonds->setText(tr("Ajouter des fonds"));
+	actionAideFonds->setStatusTip(tr("Comment ajouter d'autres fonds"));
+	menuCheat->setTitle(tr("Cheat"));
+	actionCheatDeal->setText(tr("Cheating deal"));
+	actionCheatDeal->setStatusTip(tr("Give an always-winning deal"));
+	menuAPropos->setTitle(tr("?"));
+	actionAPropos->setText(tr("A propos de QSolitaire"));
+	actionAPropos->setStatusTip(tr("Pour en savoir plus sur QSolitaire"));
+	actionAProposQt->setText(tr("A propos de Qt"));
+	actionAProposQt->setStatusTip(tr("Pour en savoir plus sur Qt"));
+	barreOutils->setWindowTitle(tr("Barre d'outils"));
 }

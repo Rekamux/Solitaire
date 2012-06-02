@@ -155,3 +155,19 @@ int Scores::exec()
 	return QDialog::exec();
 }
 
+void Scores::changeEvent(QEvent* event)
+{
+	if (event->type() == QEvent::LanguageChange) {
+		retranslate();
+	}
+
+	QDialog::changeEvent(event);
+}
+
+/***************
+ * RETRANSLATE *
+ ***************/
+void Scores::retranslate() {
+	setWindowTitle(tr("Meilleurs Scores du QSolitaire"));
+	initialiser();
+}

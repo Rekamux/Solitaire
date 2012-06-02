@@ -26,6 +26,7 @@
 #include <QBrush>
 #include <QPixmap>
 #include <QPen>
+#include <QEvent>
 
 #include <QGraphicsRectItem>
 
@@ -91,6 +92,12 @@ class CarteG : public QGraphicsRectItem
 		
 			//A déclarer AVANT de se servir des CarteG ou bien le faire lors du premier appel de constructeur
 		static void setFond(QString);		//Changer le fond commun chaque image verra son fond changé à partir de l'appel de changerImage()		
+	protected:
+		/** Translate the whole card */
+		virtual void retranslate();
+
+		/** Change event */
+		virtual void changeEvent(QEvent *);
 };
 
 #endif
