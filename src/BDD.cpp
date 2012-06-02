@@ -11,6 +11,9 @@
 #include "BDD.h"
 
 #include <QMessageBox>
+#include <iostream>
+
+using namespace std;
 
 /****************************
 *	CONSTRUCTEURS		*
@@ -26,14 +29,14 @@ BDD::BDD(QString chemin) : QList<BDDElement*>()
 	QFile fichier(chemin);
 	if(!fichier.open(QIODevice::ReadOnly))
 	{
-		QMessageBox::critical(0, QObject::tr("Droits incorrects"), chemin);
+		cerr<<"Droits incorrects : "<<chemin.toStdString();
 		return;
 	}
 	QTextStream stream(&fichier);
 	QString ligne = stream.readLine();
 	if (!ligne.contains("<BDD_par_Ax>"))
 	{
-		QMessageBox::critical(0, QObject::tr("Fichier non valide"), QObject::tr("Première ligne:")+ligne);
+		cerr<<"Fichier non valide : première ligne: "<<ligne.toStdString()<<endl;
 		return;
 	}
 	ligne = stream.readLine();
@@ -51,12 +54,12 @@ BDD::BDD(QString chemin) : QList<BDDElement*>()
 				ligne.remove(">");
 				if (element == NULL)
 				{
-					QMessageBox::critical(0, QObject::tr("Fin d'élément sans commencement"), ligne);
+					cerr<<"Fin d'élément sans commencement "<<ligne.toStdString()<<endl;
 					return;
 				}	
 				if (ligne != element->getNom())
 				{
-					QMessageBox::critical(0, QObject::tr("Changement de catégorie non autorisée"), ligne+"!="+element->getNom());
+					cerr<<"Changement de catégorie non autorisée "<<ligne.toStdString()<<"!="<<element->getNom().toStdString()<<endl;
 					return;
 				}
 				else
@@ -73,14 +76,14 @@ BDD::BDD(QString chemin) : QList<BDDElement*>()
 			{
 				if (element == NULL)
 				{
-					QMessageBox::critical(0, QObject::tr("Attributs hors élément"), ligne);
+					cerr<<"Attributs hors élément "<<ligne.toStdString()<<endl;
 					return;
 				}
 				element->ajouterAttribut(ligne);
 			}	
 			if (stream.atEnd() && !termine)
 			{
-				QMessageBox::critical(0, QObject::tr("Fin prématurée dans le fichier ")+chemin, QObject::tr("</BDD_par_Ax> attendu"));
+				cerr<<"Fin prématurée dans le fichier "<<chemin.toStdString()<<", </BDD_par_Ax> attendu"<<endl;
 				return;
 			}
 		}

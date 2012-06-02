@@ -9,6 +9,9 @@
 */
 
 #include "AnimationsColorations.h"
+#include <iostream>
+
+using namespace std;
 
 /*************************
 *	CONSTRUCTEUR	*
@@ -32,11 +35,12 @@ void AnimationsColorations::slotDetruireAnimation(int val)
 			delete operator[](i);
 			removeAt(i);
 		}
-	if (!trouve)	
-		QMessageBox::critical(0, "Destruction d'animation", "Impossible de trouver l'animation "+QString::number(val));
-	if (isEmpty())
-		if (termineQuandVide)
-			emit animationTerminee(getId());
+	if (!trouve) {
+		cerr<<"Destruction d'animation : impossible de trouver l'animation "<<val<<endl;
+	}
+	if (isEmpty() && termineQuandVide) {
+		emit animationTerminee(getId());
+	}
 }
 
 /********************
@@ -75,6 +79,7 @@ void AnimationsColorations::ajouterAnimation(AnimationColoration *ajout)
 			ajout->slotDemarrer();
 		}
 	}
-	else
-		QMessageBox::critical(0, "Animations incorrectes", "Ajout d'un pointeur sur Animation nul!");		
+	else {
+		cerr<<"Animations incorrectes : ajout d'un pointeur sur Animation nul!"<<endl;		
+	}
 }

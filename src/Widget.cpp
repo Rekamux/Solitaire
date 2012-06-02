@@ -224,7 +224,7 @@ void Widget::deal(bool cheat)
 		emplacements[i]->setParentItem(this);
 		//emplacements[i]->setPos((1+i)*espaceH + i*71, 2*espaceV + 1*96);
 		if (!verification)
-			QMessageBox::critical(0, "Deal de Widget.cc", "Erreur lors du retrait des cartes de la donne");
+			cerr<<"Deal de Widget.cc : Erreur lors du retrait des cartes de la donne"<<endl;
 	}
 
 	if (animation)
@@ -249,7 +249,7 @@ void Widget::slotChargerOptions()
 	QDir dossierCourant;
 	if (!dossierCourant.exists("Autre")) {
 		if (!dossierCourant.mkdir("donnees")) {
-			QMessageBox::critical(0, tr("Erreur lors du chargement de Autre/config.conf"), tr("Impossible d'accéder au dossier ./donnees verifiez les droits d'accès. "));
+			cerr<<"Erreur lors du chargement de Autre/config.conf : impossible d'accéder au dossier ./donnees verifiez les droits d'accès. "<<endl;
 			erreurLireConfig = true;
 		}
 	}
@@ -395,7 +395,7 @@ void Widget::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 				pasCase = false;
 				CarteG *test = lieuDepart->retirerCarte();
 				if (test == NULL)
-					QMessageBox::critical(0, "Dans mouse release event de Widget.cc", "Impossible de retirer la carte de son parent!");
+					cerr<<"Dans mouse release event de Widget.cc : impossible de retirer la carte de son parent!"<<endl;
 				carteBougee->parentWidget()->setZValue(0);
 				casesBut[i]->ajouterCarte(carteBougee);
 				QPointF arrivee = carteBougee->scenePos();
@@ -421,7 +421,7 @@ void Widget::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 				lieuDepart->retirerCartes(qCB->nombre(), reussi);
 				CarteG * test = static_cast<LieuG*>(carteBougee->parentWidget())->retirerCarte();
 				if (!reussi || test == NULL)
-					QMessageBox::critical(0, "Dans mouse release event de Widget.cc", "Impossible de retirer les cartes de leur parent!");
+					cerr<<"Dans mouse release event de Widget.cc : impossible de retirer les cartes de leur parent!"<<endl;
 				carteBougee->parentWidget()->setZValue(0);
 				emplacements[i]->ajouterCarte(carteBougee);
 				emplacements[i]->ajouterCartes(*qCB);

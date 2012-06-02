@@ -10,6 +10,10 @@
 
 #include "Animations.h"
 
+#include <iostream>
+
+using namespace std;
+
 /*************************
 *	CONSTRUCTEUR	*
 *************************/
@@ -37,8 +41,9 @@ void Animations::slotDetruireAnimation(int id)
 			delete operator[](i);
 			removeAt(i);
 		}
-	if (!trouve)	
-		QMessageBox::critical(0, "Destruction d'animation", "Impossible de trouver l'animation "+QString::number(id));
+	if (!trouve) {
+		cerr<<"Destruction d'animation : impossible de trouver l'animation "<<id<<endl;
+	}
 	if (isEmpty() && termineQuandVide)
 		emit animationTerminee(getId());
 }
@@ -50,9 +55,9 @@ void Animations::slotDetruireAnimation(int id)
 Animations::~Animations()
 {
 	if (!isEmpty())
-		QMessageBox::critical(0, "Destruction d'Animations", "On détruit des Animations alors qu'elles ne sont pas toutes terminées!");		
+		cerr<<"Destruction d'Animations : on détruit des Animations alors qu'elles ne sont pas toutes terminées!"<<endl;
 	if (nbALancer!=0)
-		QMessageBox::critical(0, "Destruction d'Animations", "On détruit des Animations alors qu'elles ne sont pas toutes lancées!");		
+		cerr<<"Destruction d'Animations : on détruit des Animations alors qu'elles ne sont pas toutes lancées!"<<endl;
 }
 
 /*****************************
@@ -90,7 +95,7 @@ void Animations::slotTimeout()
 					nbALancer--;
 				}
 			if (!trouve) {
-				QMessageBox::critical(0, "Timeout d'Animations", "nbALancer == "+QString::number(nbALancer)+" et pourtant toutes les animations sont lancées!");
+				cerr<<"Timeout d'Animations : nbALancer == "<<nbALancer<<" et pourtant toutes les animations sont lancées!"<<endl;
             }
 		}
     }
@@ -112,7 +117,7 @@ void Animations::ajouterAnimation(AnimationAbstraite *ajout)
 			ajout->slotDemarrer();
 	}
 	else
-		QMessageBox::critical(0, "Animations incorrectes", "Ajout d'un pointeur sur Animation nul!");		
+		cerr<<"Animations incorrectes : ajout d'un pointeur sur Animation nul!"<<endl;
 }
 
 /********

@@ -10,6 +10,8 @@
 
 #include "Options.h"
 #include <QLocale>
+#include <iostream>
+using namespace std;
 
 /***********************
 *	CONSTRUCTEUR	*
@@ -89,7 +91,7 @@ void Options::initialiser()
 	{
 		if (!dossierCourant.mkdir("Autre"))
 		{
-			QMessageBox::critical(this, tr("Erreur lors du chargement de Autre/config.conf"), tr("Impossible d'accéder au dossier ./Autre verifiez les droits d'accès. "));
+			cerr<<"Erreur lors du chargement de Autre/config.conf : impossible d'accéder au dossier ./Autre verifiez les droits d'accès. "<<endl;
 			erreurLireConfig = true;
 		}
 		else
@@ -190,7 +192,7 @@ void Options::reecrireConfig()
 	e->ajouterAttribut("en");
 	config->ajouterElement(e);
 	if (!config->enregistrerSous("Autre/config.conf"))
-		QMessageBox::critical(this, tr("Erreur lors du chargement de Autre/config.conf"), tr("Impossible d'accéder au dossier ./donnees verifiez les droits d'accès. "));
+		cerr<<"Erreur lors du chargement de Autre/config.conf : impossible d'accéder au dossier ./donnees verifiez les droits d'accès. "<<endl;
 	updateLanguage();
 	delete config;	
 }
@@ -263,7 +265,7 @@ void Options::slotSauverQuitter()
 	}
 	config->ajouterElement(e);
 	if (!config->enregistrerSous("Autre/config.conf"))
-		QMessageBox::critical(this, tr("Erreur lors du chargement de Autre/config.conf"), tr("Impossible d'accéder au dossier ./donnees verifiez les droits d'accès. "));
+		cerr<<"Erreur lors du chargement de Autre/config.conf : impossible d'accéder au dossier ./donnees verifiez les droits d'accès. "<<endl;
 	updateLanguage();
 	delete config;	
 	accept();

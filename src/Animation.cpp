@@ -9,6 +9,9 @@
 */
 
 #include "Animation.h"
+#include <iostream>
+
+using namespace std;
 
 /*************************
 *	CONSTRUCTEUR	*
@@ -18,7 +21,7 @@ Animation::Animation(CarteG *carte, int duree, QGraphicsItem *parent, QPointF de
 {
 	if (carte==NULL)
 	{
-		QMessageBox::critical(0, "Animation incorrecte", "Demande d'une animation avec un pointeur sur CarteG null!");
+		cerr<<"Demande d'une animation avec un pointeur sur CarteG null!"<<endl;
 		copie = NULL;
 		timer = NULL;
 	}

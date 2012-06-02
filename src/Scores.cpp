@@ -9,6 +9,9 @@
 */
 
 #include "Scores.h"
+#include <iostream>
+
+using namespace std;
 
 /***********************
 *	CONSTRUCTEUR	*
@@ -55,7 +58,7 @@ void Scores::initialiser()
 	else {
 		if (!dossierCourant.mkdir("Autre"))
 		{
-			QMessageBox::critical(this, tr("Erreur lors du chargement de Autre/scores.conf"), tr("Impossible d'accéder au dossier ./Autre verifiez les droits d'accès. "));
+			cerr<<"Erreur lors du chargement de Autre/scores.conf : impossible d'accéder au dossier ./Autre verifiez les droits d'accès."<<endl;
 			erreurLireScores = true;
 		}
 		else {
@@ -98,7 +101,7 @@ void Scores::reecrireScores()
 	}
 	scoresDB = new BDD();
 	if (!scoresDB->enregistrerSous(fileName))
-		QMessageBox::critical(this, tr("Erreur lors du chargement de Autre/scores.conf"), tr("Impossible d'accéder au dossier ./Autre verifiez les droits d'accès. "));
+		cerr<<"Erreur lors du chargement de Autre/scores.conf : impossible d'accéder au dossier ./Autre verifiez les droits d'accès. "<<endl;
 }
 
 /*****************************
@@ -119,7 +122,7 @@ void Scores::slotAjouterScore(QString nom, int score)
 		}
 	scoresDB->insert(indice, e);
 	if (!scoresDB->enregistrerSous(fileName))
-		QMessageBox::critical(this, tr("Erreur lors du chargement de ")+fileName, tr("Impossible d'accéder au dossier ./Autre verifiez les droits d'accès. "));
+		cerr<<"Erreur lors du chargement de "<<fileName.toStdString()<<" : impossible d'accéder au dossier ./Autre verifiez les droits d'accès. "<<endl;
 }
 
 /***************

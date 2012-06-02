@@ -10,6 +10,10 @@
 
 #include "EmplacementG.h"
 
+#include <iostream>
+
+using namespace std;
+
 /********************
 *	Constructeur	*
 ********************/
@@ -167,7 +171,7 @@ CarteG *EmplacementG::retournerCarteCachee()
 		if (retournee)
 			visibles.ajouterCarte(retournee);
 		else
-			QMessageBox::critical(0, "Bug", "Fonction retourner carte cachees EmplacementG.cc<br />Impossible de retirer des cartes cachees!");
+			cerr<<"Bug: fonction retourner carte cachees EmplacementG.cc<br />Impossible de retirer des cartes cachees!"<<endl;
 		if (retournee)
 		{
 			retournee->setParentItem(this);
